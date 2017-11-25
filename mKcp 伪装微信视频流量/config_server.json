@@ -11,7 +11,13 @@
   "loglevel": "info", 
   "error": "/var/log/v2ray/error.log"
  }, 
- "inboundDetour": null, 
+ "outboundDetour": [
+  {
+   "tag": "blocked", 
+   "protocol": "blackhole", 
+   "settings": null
+  }
+ ], 
  "inbound": {
   "streamSettings": {
    "network": "kcp", 
@@ -22,7 +28,7 @@
     "mtu": 1350, 
     "header": {
      "request": null, 
-     "type": "srtp", 
+     "type": "wechat-video", 
      "response": null
     }, 
     "tti": 50, 
@@ -34,9 +40,6 @@
    "tlsSettings": {}, 
    "security": ""
   }, 
-  "listen": null, 
-  "protocol": "vmess", 
-  "port": 1234, 
   "settings": {
    "ip": null, 
    "udp": true, 
@@ -48,17 +51,13 @@
     }
    ], 
    "auth": null
-  }
+  }, 
+  "protocol": "vmess", 
+  "port": 1234, 
+  "listen": null
  }, 
- "outboundDetour": [
-  {
-   "tag": "blocked", 
-   "protocol": "blackhole", 
-   "settings": null
-  }
- ], 
+ "inboundDetour": null, 
  "routing": {
-  "strategy": "rules", 
   "settings": {
    "rules": [
     {
@@ -86,7 +85,8 @@
     }
    ], 
    "domainStrategy": null
-  }
+  }, 
+  "strategy": "rules"
  }, 
  "dns": null
 }

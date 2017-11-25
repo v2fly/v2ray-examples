@@ -8,7 +8,7 @@
     "readBufferSize": 2, 
     "mtu": 1350, 
     "header": {
-     "type": "srtp", 
+     "type": "wechat-video", 
      "request": null, 
      "response": null
     }, 
