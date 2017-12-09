@@ -1,0 +1,17 @@
+https://example.domain * {
+ gzip
+ tls kiri_so@outlook.com
+ proxy / https://www.baidu.com
+ log / stdout "{request}"
+ 
+ rewrite {
+  if {host} is google.com
+  to /test
+ }
+ 
+ proxy /test localhost:1234 {
+  websocket
+  without /test
+ } 
+}
+

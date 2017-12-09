@@ -20,8 +20,7 @@
     "headers": {
      "host": "example.domain"
     }, 
-    "path": "", 
-    "connectionReuse": true
+    "path": "" 
    }, 
    "tcpSettings": null, 
    "tlsSettings": {
