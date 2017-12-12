@@ -63,8 +63,7 @@
             "reason": "OK",
             "version": "1.1"
           }
-        },
-        "connectionReuse": true
+        }
       },
       "tlsSettings": {},
       "security": ""
