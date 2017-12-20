@@ -27,9 +27,6 @@
       "network": "ws",
       "kcpSettings": null,
       "wsSettings": {
-        "headers": {
-          "host": "example.domain"
-        },
         "path": "/test"
       },
       "tcpSettings": null,
