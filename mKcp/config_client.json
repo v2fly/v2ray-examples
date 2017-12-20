@@ -1,4 +1,4 @@
-`{
+{
   "outbound": {
     "streamSettings": {
       "network": "kcp",
@@ -109,4 +109,4 @@
       "localhost"
     ]
   }
-}`
+}
