@@ -24,15 +24,10 @@
       "security": "auto", 
       "wsSettings": {
         "path": "/PATH/", 
-        "connectionReuse": true, 
         "headers": {
           "Host": "domain.Name"
         }
       }
-    }, 
-    "mux": {
-      "enabled": true, 
-      "concurrency": 64
     }
   }, 
   "outbound": {
