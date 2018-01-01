@@ -5,9 +5,9 @@
       "kcpSettings": null,
       "wsSettings": {
         "headers": {
-          "host": "example.domain"
+          "host": "google.com"
         },
-        "path": "/test"
+        "path": "/"
       },
       "tcpSettings": null,
       "tlsSettings": {},

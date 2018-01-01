@@ -28,10 +28,9 @@
       "kcpSettings": null,
       "wsSettings": {
         "headers": {
-          "host": "example.domain"
+          "host": "google.com"
         },
-        "path": "/test",
-        "connectionReuse": true
+        "path": "/"
       },
       "tcpSettings": null,
       "tlsSettings": {},

@@ -1,30 +1,20 @@
 {
   "outbound": {
     "streamSettings": {
-      "network": "kcp",
-      "kcpSettings": {
-        "uplinkCapacity": 100,
-        "downlinkCapacity": 100,
-        "readBufferSize": 2,
-        "mtu": 1350,
-        "header": {
-          "type": "none",
-          "request": null,
-          "response": null
-        },
-        "tti": 50,
-        "congestion": false,
-        "writeBufferSize": 2
+      "network": "ws",
+      "kcpSettings": null,
+      "wsSettings": {
+        "path": "/test"
       },
-      "wsSettings": null,
       "tcpSettings": null,
       "tlsSettings": {},
-      "security": ""
+      "security": "tls"
     },
     "tag": "agentout",
     "protocol": "vmess",
     "mux": {
-      "enabled": true
+      "enabled": true,
+      "concurrency": 8
     },
     "settings": {
       "vnext": [{
@@ -33,8 +23,8 @@
           "security": "aes-128-gcm",
           "id": "e2b39869-7e9e-411b-a561-00904419bed9"
         }],
-        "port": 1234,
-        "address": "Your_IP_Address"
+        "port": 443,
+        "address": "example.domain"
       }]
     }
   },
@@ -69,7 +59,7 @@
       "auth": "noauth"
     },
     "protocol": "socks",
-    "port": 1080,
+    "port": 10086,
     "listen": "0.0.0.0"
   },
   "inboundDetour": null,
