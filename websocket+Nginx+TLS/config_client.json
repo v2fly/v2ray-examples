@@ -6,10 +6,6 @@
   }, 
   "inboundDetour": [
     {
-      "domainOverride": [
-        "http", 
-        "tls"
-      ], 
       "port": 1086, 
       "listen": "127.0.0.1", 
       "protocol": "socks", 
@@ -80,13 +76,6 @@
   "routing": {
     "settings": {
       "rules": [
-        {
-          "type": "field", 
-          "ip": [
-            "geoip:cn"
-          ], 
-          "outboundTag": "direct"
-        }, 
         {
           "type": "field", 
           "domain": [
