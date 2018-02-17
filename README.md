@@ -1,9 +1,5 @@
 # vTemplate
 
-## 我的修改
-添加了vmess这种最简单的方式,在搬瓦工Ubuntu 16.04 x86_64亲测可用
-
-
 ## 这是一个社会实验性质的项目，提供数种常见的v2ray配置模板
 
 这两天雨落无声大佬的[v2ray.fun](https://github.com/FunctionClub/v2ray.fun)宣布弃坑，再次引发了v2ray水群里大佬关于一键脚本和伸手党的讨论。在讨论过程中，提出了一个有趣的命题：
