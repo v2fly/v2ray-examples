@@ -35,7 +35,7 @@
         },
         "listen": null,
         "protocol": "vmess",
-        "port": 443,
+        "port": 8443,
         "settings": {
             "ip": null,
             "udp": true,
