@@ -29,6 +29,8 @@
             "users": [
               {
                 "id": "97c0ec9c-dc4e-11e7-9296-cec278b6b50a",
+                //"level"字段与"policy"字段中的"levels"字段中的对应，默认值:0,注：需要core≥3.1
+                "level": 0,
                 "alterId": 0,
                 "security": "aes-128-cfb"
               }
@@ -71,6 +73,17 @@
     "protocol": "http",
     "settings": {
       "timeout": 300
+    }
+  },
+  // 注"policy"字段需要core≥3.1
+  "policy": {
+    "levels": {
+      "0": {
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
+        "connIdle": 150,
+        "handshake": 4
+      }
     }
   },
   "routing": {
