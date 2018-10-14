@@ -1,0 +1,117 @@
+{
+  "inbound": {
+    "allowPassive": true,
+    "port": 11451,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "alterId": 16,
+          "id": "b4fe5665-cebe-d292-0e66-9139958200f4",
+          "level": 1,
+          "security": "auto"
+        }
+      ]
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "none"
+    }
+  },
+  "inboundDetour": [
+    {
+      "allowPassive": true,
+      "port": 11452,
+      "tag": "notouch",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "alterId": 16,
+            "id": "b4fe5665-cebe-d292-0e66-9139958200f4",
+            "level": 1,
+            "security": "auto"
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none"
+      }
+    }
+  ],
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "info"
+  },
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {
+      "domainStrategy": "AsIs",
+      "timeout": 0
+    },
+    "streamSettings": {
+      "security": "tls",
+      "tlsSettings": {
+        "allowInsecure": false,
+        "alpn": [
+          "http/1.1"
+        ]
+      }
+    }
+  },
+  "outboundDetour": [
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    },
+    {
+      "protocol": "freedom",
+      "tag": "nointercept",
+      "settings": {
+        "domainStrategy": "AsIs",
+        "timeout": 0
+      },
+      "streamSettings": {
+        "security": "none"
+      }
+    }
+  ],
+  "routing": {
+    "settings": {
+      "rules": [
+        {
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "outboundTag": "blocked",
+          "type": "field"
+        },
+        {
+          "inboundTag": [
+            "notouch"
+          ],
+          "outboundTag": "nointercept",
+          "type": "field"
+        }
+      ]
+    },
+    "strategy": "rules"
+  }
+}

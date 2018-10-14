@@ -1,0 +1,1 @@
+如您对这个配置分类存在疑问，请移步 <https://kirikira.moe/post/30/>

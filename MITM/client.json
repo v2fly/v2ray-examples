@@ -1,0 +1,194 @@
+{
+  "inbound": {
+    "allowPassive": true,
+    "listen": "127.0.0.1",
+    "port": 10854,
+    "protocol": "socks",
+    "settings": {
+      "auth": "noauth",
+      "udp": true
+    },
+    "tag": "vanillas"
+  },
+  "inboundDetour": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10855,
+      "protocol": "http",
+      "settings": {},
+      "tag": "vanilla"
+    },
+    {
+      "listen": "0.0.0.0",
+      "port": 10856,
+      "tag": "mitm",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp",
+        "timeout": 0,
+        "address": "kiri.moe",
+        "port": 443,
+        "followRedirect": true
+      },
+      "streamSettings": {
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false,
+          "alpn": [
+            "http/1.1"
+          ],
+          "certificates": [
+            {
+              "usage": "issue",
+              "alpn": [
+                "http/1.1"
+              ],
+              "certificateFile": "/path/to/ca.cer",
+              "keyFile": "/path/to/ca.key"
+            }
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": false,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "log": {
+    "access": "",
+    "error": "",
+    "loglevel": "info"
+  },
+  "outbound": {
+    "mux": {
+      "enabled": true
+    },
+    "protocol": "vmess",
+    "proxySettings": {
+      "tag": "proxy"
+    },
+    "settings": {
+      "vnext": [
+        {
+          "address": "YOUR_IP",
+          "port": 11451,
+          "users": [
+            {
+              "alterId": 16,
+              "id": "b4fe5665-cebe-d292-0e66-9139958200f4",
+              "level": 0,
+              "security": "auto"
+            }
+          ]
+        }
+      ]
+    },
+    "streamSettings": {
+      "network": "tcp",
+      "security": "none"
+    }
+  },
+  "outboundDetour": [
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {
+        "redirect": "127.0.0.1:10856"
+      },
+      "tag": "reentry"
+    },
+    {
+      "mux": {
+        "enabled": true
+      },
+      "protocol": "vmess",
+      "proxySettings": {
+        "tag": "proxy"
+      },
+      "settings": {
+        "vnext": [
+          {
+            "address": "YOUR_IP",
+            "port": 11452,
+            "users": [
+              {
+                "alterId": 16,
+                "id": "b4fe5665-cebe-d292-0e66-9139958200f4",
+                "level": 0,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "none"
+      },
+      "tag": "notouch"
+    }
+  ],
+  "routing": {
+    "settings": {
+      "rules": [
+        {
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "outboundTag": "direct",
+          "type": "field"
+        },
+        {
+          "inboundTag": [
+            "vanilla",
+            "vanillas"
+          ],
+          "port": "443",
+          "outboundTag": "reentry",
+          "type": "field"
+        },
+        {
+          "inboundTag": [
+            "vanilla",
+            "vanillas"
+          ],
+          "port": "0-442",
+          "outboundTag": "notouch",
+          "type": "field"
+        },
+        {
+          "inboundTag": [
+            "vanilla",
+            "vanillas"
+          ],
+          "port": "444-65535",
+          "outboundTag": "notouch",
+          "type": "field"
+        }
+      ]
+    },
+    "strategy": "rules"
+  }
+}
