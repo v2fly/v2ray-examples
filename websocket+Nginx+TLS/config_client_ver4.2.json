@@ -1,0 +1,103 @@
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [
+    {
+      "port": 10086,
+      "listen": "0.0.0.0",
+      "tag": "socks-in",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false
+      }
+    },
+    {
+      "port": 1087,
+      "listen": "0.0.0.0",
+      "tag": "http-in",
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "mux": {
+        "concurrency": 32,
+        "enabled": true
+      },
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "users": [
+              {
+                //注：填写uuid
+                "id": "UUID",
+                "alterId": 64,
+                "security": "auto"
+              }
+            ],
+            //注：填写域名、端口
+            "address": "domain.Name",
+            "port": 1234
+          }
+        ]
+      },
+      "streamSettings": {
+        "tlsSettings": {
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.4489.62 Safari/537.36",
+            //注：填写对应头部
+            "Host": "HOST",
+            "Accept-Encoding": "gzip",
+            "Pragma": "no-cache"
+          },
+          //注：ws路径
+          "path": "/PATH/"
+        },
+        "network": "ws",
+        "security": "tls"
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "dicert"
+    }
+  ],
+  "routing": {
+    //注：全域名规则匹配
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          //注：填写对应域名和host
+          "domain:domain.Name"
+        ],
+        "outboundTag": "dicert"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "socks-in",
+          "http-in"
+        ],
+        "outboundTag": "proxy"
+      }
+    ]
+  },
+  "other": {}
+}
+
