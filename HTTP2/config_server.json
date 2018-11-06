@@ -14,13 +14,13 @@
     "inboundDetour": null,
     "inbound": {
         "streamSettings": {
-            "network": "ws",
+            "network": "h2",
             "kcpSettings": null,
-            "wsSettings": {
-                "headers": {
-                    "host": "example.domain"
-                },
-                "path": ""
+            "httpSettings": {
+                "host": [
+                    "example.domain"
+                ],
+                "path": "/test"
             },
             "tcpSettings": null,
             "tlsSettings": {

@@ -1,47 +1,36 @@
 {
-  "outbound": {
-    "streamSettings": null,
-    "tag": null,
-    "protocol": "freedom",
-    "mux": null,
-    "settings": null
-  },
   "log": {
     "access": "/var/log/v2ray/access.log",
-    "loglevel": "info",
-    "error": "/var/log/v2ray/error.log"
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "warning"
   },
-  "inboundDetour": null,
   "inbound": {
-    "streamSettings": {
-      "network": "tcp",
-      "kcpSettings": null,
-      "wsSettings": null,
-      "tcpSettings": null,
-      "tlsSettings": {},
-      "security": ""
-    },
-    "listen": null,
-    "protocol": "vmess",
     "port": 1234,
+    "protocol": "vmess",
     "settings": {
-      "ip": null,
-      "udp": true,
       "clients": [
         {
-          "alterId": 100,
+          "id": "a90597c1-bab3-4217-ad6f-0838675c8633",
+          "alterId": 10
+        },
+        {
+          "id": "8856ea72-a67a-4651-98f0-ebb3bf4f07b1",
+          "level": 1,
           "security": "aes-128-gcm",
-          "id": "e2b39869-7e9e-411b-a561-00904419bed9"
+          "alterId": 12
         }
-      ],
-      "auth": null
+      ]
     }
+  },
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {}
   },
   "outboundDetour": [
     {
-      "tag": "blocked",
       "protocol": "blackhole",
-      "settings": null
+      "settings": {},
+      "tag": "blocked"
     }
   ],
   "routing": {
@@ -49,6 +38,7 @@
     "settings": {
       "rules": [
         {
+          "type": "field",
           "ip": [
             "0.0.0.0/8",
             "10.0.0.0/8",
@@ -66,14 +56,9 @@
             "fc00::/7",
             "fe80::/10"
           ],
-          "domain": null,
-          "type": "field",
-          "port": null,
           "outboundTag": "blocked"
         }
-      ],
-      "domainStrategy": null
+      ]
     }
-  },
-  "dns": null
+  }
 }

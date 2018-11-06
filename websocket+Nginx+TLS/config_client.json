@@ -1,0 +1,145 @@
+{
+  "outbound": {
+    "protocol": "freedom",
+    "settings": {},
+    "tag": "direct"
+  },
+  "inboundDetour": [
+    {
+      "port": 1086,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "timeout": 300,
+        "udp": true
+      }
+    }
+  ],
+  "outboundDetour": [
+    {
+      "mux": {
+        "concurrency": 6,
+        "enabled": true
+      },
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "users": [
+              {
+                "id": "97c0ec9c-dc4e-11e7-9296-cec278b6b50a",
+                //"level"字段与"policy"字段中的"levels"字段中的对应，默认值:0,注：需要core≥3.1
+                "level": 0,
+                "alterId": 0,
+                "security": "aes-128-cfb"
+              }
+            ],
+            "address": "domain.Name",
+            "port": 443
+          }
+        ]
+      },
+      "streamSettings": {
+        "tlsSettings": {
+          "allowInsecure": false
+        },
+        "wsSettings": {
+          "headers": {
+            "Host": "domain.Name"
+          },
+          "path": "/PATH/"
+        },
+        "network": "ws",
+        "security": "tls"
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "block"
+    }
+  ],
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+  "inbound": {
+    "port": 1087,
+    "listen": "127.0.0.1",
+    "protocol": "http",
+    "settings": {
+      "timeout": 300
+    }
+  },
+  // 注"policy"字段需要core≥3.1
+  "policy": {
+    "levels": {
+      "0": {
+        "uplinkOnly": 0,
+        "downlinkOnly": 0,
+        "connIdle": 150,
+        "handshake": 4
+      }
+    }
+  },
+  "routing": {
+    "settings": {
+      "rules": [
+        {
+          "type": "field",
+          "domain": [
+            "geosite:cn"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "google",
+            "facebook",
+            "youtube",
+            "twitter",
+            "instagram",
+            "gmail",
+            "domain:twimg.com",
+            "domain:t.co"
+          ],
+          "outboundTag": "proxy"
+        },
+        {
+          "type": "field",
+          "ip": [
+            "8.8.8.8/32",
+            "8.8.4.4/32",
+            "91.108.56.0/22",
+            "91.108.4.0/22",
+            "109.239.140.0/24",
+            "149.154.164.0/22",
+            "91.108.56.0/23",
+            "67.198.55.0/24",
+            "149.154.168.0/22",
+            "149.154.172.0/22"
+          ],
+          "outboundTag": "proxy"
+        },
+        {
+          "type": "field",
+          "ip": [
+            "192.168.0.0/16",
+            "10.0.0.0/8",
+            "172.16.0.0/12",
+            "127.0.0.0/8",
+            "geoip:cn"
+          ],
+          "outboundTag": "direct"
+        }
+      ],
+      "domainStrategy": "IPIfNonMatch"
+    },
+    "strategy": "rules"
+  }
+}

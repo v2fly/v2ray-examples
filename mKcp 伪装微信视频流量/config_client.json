@@ -3,7 +3,7 @@
     "streamSettings": {
       "network": "kcp",
       "kcpSettings": {
-        "uplinkCapacity": 100,
+        "uplinkCapacity": 15,
         "downlinkCapacity": 100,
         "readBufferSize": 2,
         "mtu": 1350,
@@ -27,15 +27,19 @@
       "enabled": true
     },
     "settings": {
-      "vnext": [{
-        "users": [{
-          "alterId": 100,
-          "security": "aes-128-gcm",
-          "id": "e2b39869-7e9e-411b-a561-00904419bed9"
-        }],
-        "port": 1234,
-        "address": "Your_IP_Address"
-      }]
+      "vnext": [
+        {
+          "users": [
+            {
+              "alterId": 100,
+              "security": "aes-128-gcm",
+              "id": "e2b39869-7e9e-411b-a561-00904419bed9"
+            }
+          ],
+          "port": 1234,
+          "address": "Your_IP_Address"
+        }
+      ]
     }
   },
   "log": {
@@ -43,7 +47,8 @@
     "loglevel": "info",
     "error": ""
   },
-  "outboundDetour": [{
+  "outboundDetour": [
+    {
       "tag": "direct",
       "protocol": "freedom",
       "settings": {
@@ -75,29 +80,31 @@
   "inboundDetour": null,
   "routing": {
     "settings": {
-      "rules": [{
-        "ip": [
-          "0.0.0.0/8",
-          "10.0.0.0/8",
-          "100.64.0.0/10",
-          "127.0.0.0/8",
-          "169.254.0.0/16",
-          "172.16.0.0/12",
-          "192.0.0.0/24",
-          "192.0.2.0/24",
-          "192.168.0.0/16",
-          "198.18.0.0/15",
-          "198.51.100.0/24",
-          "203.0.113.0/24",
-          "::1/128",
-          "fc00::/7",
-          "fe80::/10"
-        ],
-        "domain": null,
-        "type": "field",
-        "port": null,
-        "outboundTag": "direct"
-      }],
+      "rules": [
+        {
+          "ip": [
+            "0.0.0.0/8",
+            "10.0.0.0/8",
+            "100.64.0.0/10",
+            "127.0.0.0/8",
+            "169.254.0.0/16",
+            "172.16.0.0/12",
+            "192.0.0.0/24",
+            "192.0.2.0/24",
+            "192.168.0.0/16",
+            "198.18.0.0/15",
+            "198.51.100.0/24",
+            "203.0.113.0/24",
+            "::1/128",
+            "fc00::/7",
+            "fe80::/10"
+          ],
+          "domain": null,
+          "type": "field",
+          "port": null,
+          "outboundTag": "direct"
+        }
+      ],
       "domainStrategy": "IPIfNonMatch"
     },
     "strategy": "rules"

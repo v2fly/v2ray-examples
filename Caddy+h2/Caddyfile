@@ -1,0 +1,11 @@
+https://example.domain {
+    tls kiri_so@outlook.com
+    root /var/www/
+
+    proxy /test https://127.0.0.1:8443 {
+        header_upstream Host "example.domain"
+        header_upstream X-Forwarded-Proto "https"
+        insecure_skip_verify
+    }
+
+}

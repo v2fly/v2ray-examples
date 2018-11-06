@@ -1,60 +1,20 @@
 {
   "outbound": {
     "streamSettings": {
-      "network": "tcp",
+      "network": "ws",
       "kcpSettings": null,
-      "wsSettings": null,
-      "tcpSettings": {
-        "header": {
-          "type": "http",
-          "request": {
-            "path": [
-              "/"
-            ],
-            "version": "1.1",
-            "method": "GET",
-            "headers": {
-              "Host": "cloudflare.com",
-              "User-Agent": [
-                "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36",
-                "Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/601.1 (KHTML, like Gecko) CriOS/53.0.2785.109 Mobile/14A456 Safari/601.1.46"
-              ],
-              "Connection": [
-                "keep-alive"
-              ],
-              "Pragma": "no-cache",
-              "Accept-Encoding": [
-                "gzip, deflate"
-              ]
-            }
-          },
-          "response": {
-            "status": "200",
-            "headers": {
-              "Transfer-Encoding": [
-                "chunked"
-              ],
-              "Connection": [
-                "keep-alive"
-              ],
-              "Content-Type": [
-                "application/octet-stream",
-                "video/mpeg"
-              ],
-              "Pragma": "no-cache"
-            },
-            "reason": "OK",
-            "version": "1.1"
-          }
-        }
+      "wsSettings": {
+        "path": "/test"
       },
+      "tcpSettings": null,
       "tlsSettings": {},
-      "security": ""
+      "security": "tls"
     },
     "tag": "agentout",
     "protocol": "vmess",
     "mux": {
-      "enabled": true
+      "enabled": true,
+      "concurrency": 8
     },
     "settings": {
       "vnext": [
@@ -66,8 +26,8 @@
               "id": "e2b39869-7e9e-411b-a561-00904419bed9"
             }
           ],
-          "port": 1234,
-          "address": "Your_IP_Address"
+          "port": 443,
+          "address": "example.domain"
         }
       ]
     }
@@ -104,7 +64,7 @@
       "auth": "noauth"
     },
     "protocol": "socks",
-    "port": 1080,
+    "port": 10086,
     "listen": "0.0.0.0"
   },
   "inboundDetour": null,

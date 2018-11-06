@@ -11,24 +11,32 @@
     "loglevel": "info",
     "error": "/var/log/v2ray/error.log"
   },
-  "inboundDetour": null,
+  "outboundDetour": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": null
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": null
+    }
+  ],
   "inbound": {
     "streamSettings": {
       "network": "ws",
       "kcpSettings": null,
       "wsSettings": {
         "headers": {
-          "host": "example.domain"
+          "host": "google.com"
         },
-        "path": ""
+        "path": "/"
       },
       "tcpSettings": null,
       "tlsSettings": {},
       "security": ""
     },
-    "listen": null,
-    "protocol": "vmess",
-    "port": 1234,
     "settings": {
       "ip": null,
       "udp": true,
@@ -40,17 +48,13 @@
         }
       ],
       "auth": null
-    }
+    },
+    "protocol": "vmess",
+    "port": 1234,
+    "listen": null
   },
-  "outboundDetour": [
-    {
-      "tag": "blocked",
-      "protocol": "blackhole",
-      "settings": null
-    }
-  ],
+  "inboundDetour": null,
   "routing": {
-    "strategy": "rules",
     "settings": {
       "rules": [
         {
@@ -78,7 +82,8 @@
         }
       ],
       "domainStrategy": null
-    }
+    },
+    "strategy": "rules"
   },
   "dns": null
 }

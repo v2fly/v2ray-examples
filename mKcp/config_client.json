@@ -1,9 +1,9 @@
-`{
+{
   "outbound": {
     "streamSettings": {
       "network": "kcp",
       "kcpSettings": {
-        "uplinkCapacity": 100,
+        "uplinkCapacity": 15,
         "downlinkCapacity": 100,
         "readBufferSize": 2,
         "mtu": 1350,
@@ -109,4 +109,4 @@
       "localhost"
     ]
   }
-}`
+}
