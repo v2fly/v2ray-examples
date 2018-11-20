@@ -1,0 +1,54 @@
+{
+  "log": {
+    "loglevel": "debug"
+  }, 
+  "inbounds": [
+    {
+      "port": 10086, 
+      "listen": "127.0.0.1", 
+      "tag": "vmess-in", 
+      "protocol": "vmess", 
+      "settings": {
+        "clients": [
+          {
+	//注：UUID
+            "id": "UUID", 
+            "alterId": 64
+          }
+        ]
+      }, 
+      "streamSettings": {
+        "network": "ws", 
+        "wsSettings": {
+	//注：ws路径
+          "path": "/PATH/", 
+          "headers": { }
+        }
+      }
+    }
+  ], 
+  "outbounds": [
+    {
+      "protocol": "freedom", 
+      "settings": { }, 
+      "tag": "direct"
+    }, 
+    {
+      "protocol": "blackhole", 
+      "settings": { }, 
+      "tag": "blocked"
+    }
+  ], 
+  "routing": {
+    "domainStrategy": "AsIs", 
+    "rules": [
+      {
+        "type": "field", 
+        "inboundTag": [
+          "vmess-in"
+        ], 
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}
