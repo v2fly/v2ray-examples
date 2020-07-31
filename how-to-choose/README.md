@@ -18,7 +18,7 @@
       ```
    1. 生成文件
       ```shell
-      ./node_modules/.bin/mmdc -i how-to-choose-a-v2ray-plan.mmd -o how-to-choose-a-v2ray-plan.png -t forest -w 1920 -H 1080 -p puppeteer-config.json
+      ./node_modules/.bin/mmdc -i how-to-choose-a-v2ray-plan.mmd -o how-to-choose-a-v2ray-plan.png -t forest -C style.css -w 1920 -H 1080 -p puppeteer-config.json
       ```
 1. 提交 PR
 
