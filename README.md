@@ -21,12 +21,12 @@
 
 ```yaml
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "routing": {},
-  "inbounds": [],
-  "outbounds": []
+    "log": {
+      "loglevel": "warning"
+    },
+    "routing": {},
+    "inbounds": [],
+    "outbounds": []
 }
 ```
 
@@ -34,49 +34,49 @@
 
 ```yaml
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "routing": {
-    "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "direct",
-        "port": null,
-        "type": "field"
-      }
-    ]
-  },
-  "inbounds": [
-    {
-      "port": 1234,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "e2b39869-7e9e-411b-a561-00904419bed9",
-            "alterId": 100,
-            "testsEnabled": "VMessAEAD"
-          }
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "direct",
+                "port": null,
+                "type": "field"
+            }
         ]
-      },
-      "tag": "tcp",
-      "streamSettings": {
-        "network": "tcp"
-      }
-    }
-  ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {
-      },
-      "tag": "direct"
-    }
-  ]
+    },
+    "inbounds": [
+        {
+            "port": 1234,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+                        "alterId": 100,
+                        "testsEnabled": "VMessAEAD"
+                    }
+                ]
+            },
+            "tag": "tcp",
+            "streamSettings": {
+                "network": "tcp"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {
+            },
+            "tag": "direct"
+        }
+    ]
 }
 ```
 
@@ -84,55 +84,55 @@
 
 ```yaml
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "routing": {
-    "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "blocked",
-        "port": null,
-        "type": "field"
-      }
-    ]
-  },
-  "inbounds": [
-    {
-      "port": 1234,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "e2b39869-7e9e-411b-a561-00904419bed9",
-            "alterId": 100,
-            "testsEnabled": "VMessAEAD"
-          }
-        ]
-      },
-      "tag": "tcp",
-      "streamSettings": {
-        "network": "tcp"
-      }
-    }
-  ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {
-      },
-      "tag": "direct"
+    "log": {
+        "loglevel": "warning"
     },
-    {
-      "protocol": "blackhole",
-      "settings": {
-      },
-      "tag": "blocked"
-    }
-  ]
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "blocked",
+                "port": null,
+                "type": "field"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 1234,
+            "protocol": "vmess",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+                        "alterId": 100,
+                        "testsEnabled": "VMessAEAD"
+                    }
+                ]
+            },
+            "tag": "tcp",
+            "streamSettings": {
+                "network": "tcp"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {
+            },
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {
+            },
+            "tag": "blocked"
+        }
+    ]
 }
 ```
 
