@@ -52,24 +52,39 @@
     },
     "inbounds": [
         {
-            "port": 1234,
-            "protocol": "vmess",
+            "port": 1080,
+            "protocol": "socks",
             "settings": {
-                "clients": [
-                    {
-                        "id": "e2b39869-7e9e-411b-a561-00904419bed9",
-                        "alterId": 100,
-                        "testsEnabled": "VMessAEAD"
-                    }
-                ]
+                "auth": "noauth",
+                "udp": true
             },
-            "tag": "tcp",
-            "streamSettings": {
-                "network": "tcp"
-            }
+            "tag": "socks"
         }
     ],
     "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [
+                    {
+                        "users": [
+                            {
+                                "alterId": 100,
+                                "security": "aes-128-gcm",
+                                "id": "",
+                                "testsEnabled": "VMessAEAD"
+                            }
+                        ],
+                        "port": 1234,
+                        "address": "Your_IP_Address"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            },
+            "tag": "proxy"
+        },
         {
             "protocol": "freedom",
             "settings": {
@@ -107,7 +122,7 @@
             "settings": {
                 "clients": [
                     {
-                        "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+                        "id": "",
                         "alterId": 100,
                         "testsEnabled": "VMessAEAD"
                     }
