@@ -12,8 +12,8 @@
 - 不需要的字段应该移除
 - `log` 部分只留 `loglevel`
 - 对于 `outbounds`，客户端应有 `proxy` 和 `direct`，服务端应有 `direct` 和 `block`
-- 除非特定场景的模板，否则只处理 `geoip:private` 到 `direct` (服务端处理到 `block`)
-- 除非特定场景的模板，配置文件中应不写 DNS
+- 除非是适用于特定场景的模板，否则应当将 `geoip:private` 路由到 `direct` 出站 (服务端配置路由到 `block` 出站)
+- 除非是适用于特定场景的模板，否则配置文件中不应出现 DNS
 - `uuid` 应留空，由用户自行填写。
 - `routing` 中的 `domainStrategy` 保持默认，即 `AsIs`。
 
