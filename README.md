@@ -22,7 +22,7 @@
 ```yaml
 {
     "log": {
-      "loglevel": "warning"
+        "loglevel": "warning"
     },
     "routing": {},
     "inbounds": [],
