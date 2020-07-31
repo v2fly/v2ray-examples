@@ -2,27 +2,19 @@
   "log": {
     "loglevel": "warning"
   },
-  "dns": {
-    "servers": [
-      "8.8.8.8",
-      "8.8.4.4",
-      "localhost"
-    ]
-  },
   "routing": {
-    "domainStrategy": "IPIfNonMatch",
+    "domainStrategy": "AsIs",
     "rules": [
       {
         "ip": [
           "geoip:private"
         ],
-        "outboundTag": "direct",
+        "outboundTag": "blocked",
         "port": null,
         "type": "field"
       }
     ]
   },
-  "policy": {},
   "inbounds": [
     {
       "port": 1234,
@@ -38,8 +30,7 @@
       },
       "tag": "tcp",
       "streamSettings": {
-        "network": "tcp",
-        "tcpSettings": {}
+        "network": "tcp"
       }
     }
   ],
@@ -49,9 +40,12 @@
       "settings": {
       },
       "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+      },
+      "tag": "blocked"
     }
-  ],
-  "transport": {},
-  "stats": {},
-  "reverse": {}
+  ]
 }
