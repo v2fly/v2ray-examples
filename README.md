@@ -14,7 +14,7 @@
 
 ## 如何选取适合自己的配置：
 
-![](How_To_Choose.jpg)
+![](how-to-choose/how-to-choose-a-v2ray-plan.png)
 
 附加说明：<br>
 尽管 Websocket+TLS+Web 可能称得上是现阶段最好的方案，但**绝对**不是推荐新手一上来就尝试的方案，更不是 V2Ray 唯一的用法。<br>
