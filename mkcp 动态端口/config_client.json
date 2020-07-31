@@ -1,0 +1,74 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4",
+      "localhost"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ip": [
+          "geoip:cn",
+          "geoip:private"
+        ],
+        "outboundTag": "direct",
+        "port": null,
+        "type": "field"
+      }
+    ]
+  },
+  "policy": {},
+  "inbounds": [
+    {
+      "port": "1080",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      },
+      "tag": "socks"
+    }
+  ],
+  "outbounds": [
+    {
+      "sendThrough": "0.0.0.0",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "users": [
+              {
+                "alterId": 100,
+                "security": "aes-128-gcm",
+                "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+                "testsEnabled": "VMessAEAD"
+              }
+            ],
+            "port": 1234,
+            "address": "Your_IP_Address"
+          }
+        ]
+      },
+      "tag": "proxy",
+      "streamSettings": {
+        "network": "kcp"
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {
+      },
+      "tag": "direct"
+    }
+  ],
+  "transport": {},
+  "stats": {},
+  "reverse": {}
+}
