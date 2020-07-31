@@ -38,8 +38,7 @@
       },
       "tag": "kcp-in",
       "streamSettings": {
-        "network": "kcp",
-        "tcpSettings": {}
+        "network": "kcp"
       },
       "detour": {
         "to": "Dynamic"
