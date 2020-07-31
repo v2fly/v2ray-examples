@@ -1,0 +1,68 @@
+%% 大段文字请用双引号，否则无法使用中文标点等字符
+%% 文字内支持 HTML 语法，如 换行请用 <br>
+%% 支持 Font Awesome 图标
+%% 更多语法参见 [Mermaid 流程图语法](https://mermaidjs.github.io/flowchart.html)
+
+graph TB
+
+tag(fa:fa-tag ver. 1.1)
+style tag fill: #0000000a, stroke: #bfbfbf
+
+start["如何选择 V2Ray 方案 fa:fa-rocket"] -->
+  simple-way?(-"萌新？懒得折腾？急着用？"-)
+
+simple-way? -->
+  |否| speed?(-"要速度？还是要稳定？"-)
+simple-way? -->
+  |是| buy["买买买！请自行搜索付费 VPN SS V2Ray<br>方便、快捷、省时、省力！"]
+
+speed? --> |稳定| worry-sniff?(-"介意可能会被探测到你正在使用 V2Ray 么？"-)
+speed? --> |速度| kcp["fa:fa-star KCP"]
+
+%% 速度分支
+
+kcp --> more-speed?(-"单纯 KCP 速度不理想？想尝试更复杂的配置？"-)
+more-speed? -->
+  |是的| kcp-udp2raw["fa:fa-star fa:fa-star fa:fa-star 尝试 KCP + udp2raw<br><i>*注意 udp2raw 难以在手机客户端使用</i>"]
+
+kcp-udp2raw --> more-more-speed?(-"还是不给力？"-)
+more-more-speed? -->
+  |"是啊！感觉被骗了！"| tcp-bbr["
+    fa:fa-star fa:fa-star fa:fa-star 调整 KCP 参数 或 尝试 TCP + BBR<br>
+    <i>*注意 BBR 需要特定的系统支持，请查阅相关教程。</i><br>
+    <i>由于是底层单边算法，可以结合其他选项使用</i>
+  "]
+
+%% 稳定分支
+
+worry-sniff? -->
+  |不用杞人忧天| tcp-vmess["fa:fa-star TCP + Vmess"]
+worry-sniff? -->
+  |偷偷地干活| have-website?(-"懂得如何搭建网站？<br>服务器上已经有网站在运行了？"-)
+
+have-website? -->
+  |"没有，不懂也不想懂"| ws-or-obfu["fa:fa-star WebSocket、HTTP/2 或者 Vmess + 伪装"]
+have-website? -->
+  |"是的！教练！我想学这个！"| https?(-"想要进一步隐藏 V2Ray？<br>网站是否支持 HTTPS？"-)
+
+https? -->
+  |安全一点总是好的| https-website["
+    fa:fa-star fa:fa-star Caddy + TLS + WebSocket、HTTP/2<br>
+    fa:fa-star fa:fa-star fa:fa-star Nginx/Apache/其它 + TLS + WebSocket、HTTP/2
+  "]
+https? -->
+  |"算了，太麻烦"| website["fa:fa-star fa:fa-star Caddy/Nginx/Apache/其它 + WebSocket"]
+
+website --> cdn?
+https-website --> cdn?
+cdn?(-"想要保护主机 IP 不被干掉？<br>即使速度可能会受到不确定的影响？"-) -->
+  |"是的，稳一点是一点"| cdn["fa:fa-star fa:fa-star Cloudflare 等 CDN<br><i>*注 该难度等级独属于 CDN</i>"]
+
+
+note("<i>
+fa:fa-star 表示复杂等级，fa:fa-star 越多越复杂，难度越大<br>
+可以结合使用速度分类和稳定分类中的某些选项<br>
+参与修改本图请前往 github.com/v2fly/vTemplate
+</i>")
+
+style note stroke-width:2px, stroke-dasharray: 5.5
