@@ -45,7 +45,6 @@
                     "geoip:private"
                 ],
                 "outboundTag": "direct",
-                "port": null,
                 "type": "field"
             }
         ]
@@ -69,26 +68,19 @@
                     {
                         "users": [
                             {
-                                "alterId": 100,
+                                "alterId": 4,
                                 "security": "aes-128-gcm",
                                 "id": "",
-                                "testsEnabled": "VMessAEAD"
                             }
                         ],
                         "port": 1234,
                         "address": "Your_IP_Address"
                     }
                 ]
-            },
-            "streamSettings": {
-                "network": "tcp"
-            },
-            "tag": "proxy"
+            }
         },
         {
             "protocol": "freedom",
-            "settings": {
-            },
             "tag": "direct"
         }
     ]
@@ -110,7 +102,6 @@
                     "geoip:private"
                 ],
                 "outboundTag": "blocked",
-                "port": null,
                 "type": "field"
             }
         ]
@@ -123,28 +114,18 @@
                 "clients": [
                     {
                         "id": "",
-                        "alterId": 100,
-                        "testsEnabled": "VMessAEAD"
+                        "alterId": 4,
                     }
                 ]
-            },
-            "tag": "tcp",
-            "streamSettings": {
-                "network": "tcp"
             }
         }
     ],
     "outbounds": [
         {
             "protocol": "freedom",
-            "settings": {
-            },
-            "tag": "direct"
         },
         {
             "protocol": "blackhole",
-            "settings": {
-            },
             "tag": "blocked"
         }
     ]
@@ -161,4 +142,4 @@
 
 ## 最后
 
-祝你玩的愉快，感谢原始作者 KiriKira 和 Project V 的所有开发人员，以及 v2ray.fun 的作者。
+祝你玩的愉快，感谢原始作者 KiriKira、雨落无声和 Project V 的所有开发人员。
