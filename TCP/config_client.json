@@ -2,19 +2,11 @@
   "log": {
     "loglevel": "warning"
   },
-  "dns": {
-    "servers": [
-      "8.8.8.8",
-      "8.8.4.4",
-      "localhost"
-    ]
-  },
   "routing": {
-    "domainStrategy": "IPIfNonMatch",
+    "domainStrategy": "AsIs",
     "rules": [
       {
         "ip": [
-          "geoip:cn",
           "geoip:private"
         ],
         "outboundTag": "direct",
@@ -23,77 +15,31 @@
       }
     ]
   },
-  "policy": {},
   "inbounds": [
     {
-      "port": "1080",
-      "protocol": "socks",
-      "settings": {
-        "auth": "noauth",
-        "udp": true
-      },
-      "tag": "socks"
-    }
-  ],
-  "outbounds": [
-    {
-      "sendThrough": "0.0.0.0",
+      "port": 1234,
       "protocol": "vmess",
       "settings": {
-        "vnext": [
+        "clients": [
           {
-            "users": [
-              {
-                "alterId": 100,
-                "security": "aes-128-gcm",
-                "id": "e2b39869-7e9e-411b-a561-00904419bed9",
-                "testsEnabled": "VMessAEAD"
-              }
-            ],
-            "port": 1234,
-            "address": "Your_IP_Address"
+            "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+            "alterId": 100,
+            "testsEnabled": "VMessAEAD"
           }
         ]
       },
-      "tag": "proxy",
+      "tag": "tcp",
       "streamSettings": {
-        "network": "tcp",
-        "tcpSettings": {
-          "header": {
-            "request": {
-              "headers": {
-              },
-              "method": "GET",
-              "path": [
-              ],
-              "version": "1.1"
-            },
-            "response": {
-              "headers": {
-              },
-              "reason": "OK",
-              "status": "200",
-              "version": "1.1"
-            },
-            "type": "none"
-          }
-        },
-        "tlsSettings": {},
-        "security": "auto"
-      },
-      "proxySettings": {
-        "tag": "proxy"
-      },
-      "mux": {}
-    },
+        "network": "tcp"
+      }
+    }
+  ],
+  "outbounds": [
     {
       "protocol": "freedom",
       "settings": {
       },
       "tag": "direct"
     }
-  ],
-  "transport": {},
-  "stats": {},
-  "reverse": {}
+  ]
 }
