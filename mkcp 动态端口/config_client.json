@@ -58,8 +58,7 @@
       "tag": "proxy",
       "streamSettings": {
         "network": "kcp"
-      },
-      "tag": "proxy"
+      }
     },
     {
       "protocol": "freedom",
