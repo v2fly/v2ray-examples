@@ -1,0 +1,78 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4",
+      "localhost"
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct",
+        "port": null,
+        "type": "field"
+      }
+    ]
+  },
+  "policy": {},
+  "inbounds": [
+    {
+      "port": 1234,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "e2b39869-7e9e-411b-a561-00904419bed9",
+            "alterId": 100,
+            "testsEnabled": "VMessAEAD"
+          }
+        ]
+      },
+      "tag": "kcp-in",
+      "streamSettings": {
+        "network": "kcp",
+        "tcpSettings": {}
+      },
+      "detour": {
+        "to": "Dynamic"
+      }
+    },
+    {
+      "protocol": "vmess",
+      "port": "10000-59999",
+      "tag": "Dynamic",
+      "settings": {
+        "default": {
+          "alterId": 100
+        }
+      },
+      "allocate": {
+        "strategy": "random",
+        "concurrency": 50,
+        "refresh": 2
+      },
+      "streamSettings": {
+        "network": "kcp"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {
+      },
+      "tag": "direct"
+    }
+  ],
+  "transport": {},
+  "stats": {},
+  "reverse": {}
+}
