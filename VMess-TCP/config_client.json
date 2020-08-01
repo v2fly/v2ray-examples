@@ -1,45 +1,63 @@
 {
-  "log": {
-    "loglevel": "warning"
-  },
-  "routing": {
-    "domainStrategy": "AsIs",
-    "rules": [
-      {
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "direct",
-        "port": null,
-        "type": "field"
-      }
-    ]
-  },
-  "inbounds": [
-    {
-      "port": 1234,
-      "protocol": "vmess",
-      "settings": {
-        "clients": [
-          {
-            "id": "e2b39869-7e9e-411b-a561-00904419bed9",
-            "alterId": 100,
-            "testsEnabled": "VMessAEAD"
-          }
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStratedy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "tag": "direct"
+            }
         ]
-      },
-      "tag": "tcp",
-      "streamSettings": {
-        "network": "tcp"
-      }
-    }
-  ],
-  "outbounds": [
-    {
-      "protocol": "freedom",
-      "settings": {
-      },
-      "tag": "direct"
-    }
-  ]
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": "1080",
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": "true",
+                "ip": "127.0.0.1"
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "1081",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "",
+                        "port": 1234,
+                        "user": [
+                            {
+                                "id": "",
+                                "alterId": 4,
+                                "security": "auto",
+                                "testEnabled": "VMessAEAD"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp"
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
 }
