@@ -3,53 +3,65 @@
         "loglevel": "warning"
     },
     "routing": {
-        "domainStrategy": "AsIs",
+        "domainStratedy": "AsIs",
         "rules": [
             {
                 "type": "field",
                 "ip": [
                     "geoip:private"
                 ],
-                "outboundTag": "block"
+                "tag": "direct"
             }
         ]
     },
     "inbounds": [
         {
-            "listen": "0.0.0.0",
-            "port": 1234,
+            "listen": "127.0.0.1",
+            "port": "1080",
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": "true",
+                "ip": "127.0.0.1"
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "1081",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
             "protocol": "vmess",
             "settings": {
-                "clients": [
+                "vnext": [
                     {
-                        "id": "",
-                        "alterId": 4
+                        "address": "",
+                        "port": 1234,
+                        "user": [
+                            {
+                                "id": "",
+                                "alterId": 4,
+                                "security": "none"
+                            }
+                        ]
                     }
-                ],
-                "disableInsecureEncryption": false
+                ]
             },
             "streamSettings": {
                 "network": "tcp",
                 "security": "tls",
                 "tlsSettings": {
-                    "certificates": [
-                        {
-                            "certificateFile": "/path/to/certificate.crt",
-                            "keyFile": "/path/to/key.key"
-                        }
-                    ]
+                    "serverName": "example.domain",
+                    "allowInsecure": false
                 }
-            }
-        }
-    ],
-    "outbounds": [
+            },
+            "tag": "proxy"
+        },
         {
             "protocol": "freedom",
             "tag": "direct"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "block"
         }
     ]
 }
