@@ -70,7 +70,7 @@
                             {
                                 "alterId": 4,
                                 "security": "aes-128-gcm",
-                                "id": "",
+                                "id": ""
                             }
                         ],
                         "port": 1234,
@@ -114,7 +114,7 @@
                 "clients": [
                     {
                         "id": "",
-                        "alterId": 4,
+                        "alterId": 4
                     }
                 ]
             }
