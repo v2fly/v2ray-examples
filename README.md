@@ -1,4 +1,4 @@
-# vTemplate
+# v2ray-examples
 
 这是一个社会实验性质的项目，提供标准的 V2Ray 配置模板。
 
