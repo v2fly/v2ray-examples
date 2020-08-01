@@ -15,7 +15,7 @@
       }
     ]
   },
-  "inbounds": [
+  "outbounds": [
     {
       "port": 1234,
       "protocol": "vmess",
@@ -28,18 +28,29 @@
           }
         ]
       },
-      "tag": "tcp",
+      "tag": "proxy",
       "streamSettings": {
         "network": "tcp"
       }
-    }
-  ],
-  "outbounds": [
+    },
     {
+      "tag": "direct",
       "protocol": "freedom",
       "settings": {
-      },
-      "tag": "direct"
+        "domainStrategy": "UseIP"
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "port": 6789,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": false,
+        "ip": "127.0.0.1"
+      }
     }
   ]
 }
