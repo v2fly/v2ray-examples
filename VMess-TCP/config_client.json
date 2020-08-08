@@ -33,7 +33,7 @@
     ],
     "outbounds": [
         {
-            "protocol": "vless",
+            "protocol": "vmess",
             "settings": {
                 "vnext": [
                     {
@@ -43,7 +43,8 @@
                             {
                                 "id": "",
                                 "alterId": 4,
-                                "encryption": "none"
+                                "security": "auto",
+                                "testsEnabled": "VMessAEAD"
                             }
                         ]
                     }
