@@ -2,18 +2,6 @@
     "log": {
         "loglevel": "warning"
     },
-    "routing": {
-        "domainStratedy": "AsIs",
-        "rules": [
-            {
-                "type": "field",
-                "ip": [
-                    "geoip:private"
-                ],
-                "tag": "direct"
-            }
-        ]
-    },
     "inbounds": [
         {
             "listen": "127.0.0.1",
@@ -37,20 +25,30 @@
             "settings": {
                 "vnext": [
                     {
-                        "address": "",
-                        "port": 1234,
+                        "address": "1.2.3.4",
+                        "port": 443,
                         "user": [
                             {
                                 "id": "",
-                                "alterId": 4,
-                                "encryption": "none"
+                                "encryption": "none",
+                                "level": 0
                             }
                         ]
                     }
                 ]
             },
             "streamSettings": {
-                "network": "tcp"
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "example.domain",
+                    "allowInsecure": false,
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "disableSessionResumption": true
+                }
             },
             "tag": "proxy"
         },
@@ -58,5 +56,17 @@
             "protocol": "freedom",
             "tag": "direct"
         }
-    ]
+    ],
+    "routing": {
+        "domainStratedy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "tag": "direct"
+            }
+        ]
+    }
 }
