@@ -1,0 +1,41 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 1234,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "",
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "fallback": {
+                    "addr": "127.0.0.1",
+                    "port": 8001,
+                    "xver": 0
+                },
+                "fallback_h2": {
+                    "addr": "127.0.0.1",
+                    "port": 8002,
+                    "xver": 0
+                },
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "tcp"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}

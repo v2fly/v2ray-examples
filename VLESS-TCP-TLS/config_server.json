@@ -1,0 +1,55 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "",
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "fallback": {
+                    "addr": "127.0.0.1",
+                    "port": 8001,
+                    "xver": 0
+                },
+                "fallback_h2": {
+                    "addr": "127.0.0.1",
+                    "port": 8002,
+                    "xver": 0
+                },
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "example.domain",
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/path/to/certificate.crt",
+                            "keyFile": "/path/to/key.key"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}
