@@ -28,7 +28,7 @@
                     ],
                     "certificates": [
                         {
-                            "certificateFile": "/path/to/tls.crt", // 换成你的证书（建议 fullchain），绝对路径
+                            "certificateFile": "/path/to/tls.crt", // 换成你的证书（fullchain），绝对路径
                             "keyFile": "/path/to/tls.key" // 换成你的私钥，绝对路径
                         }
                     ]
