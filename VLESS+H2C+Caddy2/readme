@@ -1,2 +1,5 @@
+原理图：
+v2ray client <---> H2 <---> caddy2 <---> H2C <---> v2ray server
+
 注意：
 目前仅caddy2的v2.2.0-rc.1版及以后完美支持v2ray的H2C,实现H2(HTTP/2)应用。
