@@ -1,8 +1,9 @@
 https://xx.com:443 {
-    tls yy@zz.com
+
     root * /var/www
     file_server
-
+    tls  xx.com.cert  xx.com.key
+    
     reverse_proxy /path 127.0.0.1:2001 {
         transport http {
           versions h2c
