@@ -6,5 +6,5 @@ xx.com {
         transport http {
             versions h2c
         }
-   }
+    }
 }
