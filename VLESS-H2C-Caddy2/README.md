@@ -1,4 +1,4 @@
-原理图：
+# 原理图：
 v2ray client <--- H2 ---> caddy2 <--- H2C ---> v2ray server
 
 注意：
