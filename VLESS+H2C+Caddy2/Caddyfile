@@ -1,5 +1,4 @@
 https://xx.com:443 {
-
     root * /var/www
     file_server
     tls  xx.com.cert  xx.com.key
