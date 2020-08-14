@@ -4,7 +4,7 @@ xx.com {
     
     reverse_proxy /path 127.0.0.1:2001 {
         transport http {
-          versions h2c
+            versions h2c
         }
-    }
+   }
 }
