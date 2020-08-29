@@ -3,7 +3,7 @@
         "loglevel": "warning"
     },
     "routing": {
-        "domainStratedy": "AsIs",
+        "domainStrategy": "AsIs",
         "rules": [
             {
                 "type": "field",
