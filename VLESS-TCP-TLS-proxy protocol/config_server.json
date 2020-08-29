@@ -15,16 +15,27 @@
                         "email": "love@v2fly.org"
                     }
                 ],
-                "fallback": {
-                    "addr": "127.0.0.1",
-                    "port": 8001,
-                    "xver": 1
-                },
-                "fallback_h2": {
-                    "addr": "127.0.0.1",
-                    "port": 8002,
-                    "xver": 1
-                },
+                "fallbacks": [
+                    {
+                        "dest": 8001,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/testing",
+                        "dest": "127.0.0.1:8003",
+                        "xver": 1
+                    },
+                    {
+                        "path": "/tested",
+                        "dest": "127.0.0.1:8004",
+                        "xver": 1
+                    },
+                    {
+                        "alpn": "h2",
+                        "dest": "8002",
+                        "xver": 1
+                    }
+                ],
                 "decryption": "none"
             },
             "streamSettings": {
