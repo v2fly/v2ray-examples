@@ -12,7 +12,7 @@ Add the following line to the block starting with [Service]
 ```
 RuntimeDirectory=ss-loop 
 ```
-'ss-loop'corresponds to the "/var/run/ss-loop" folder in the "dsSettings" part of the config.json.
+'ss-loop' corresponds to the "/var/run/ss-loop" folder in the "dsSettings" part of the config.json.
 
 Execute the following commands to re-enable the v2ray.service.
 ```
