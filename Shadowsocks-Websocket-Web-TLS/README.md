@@ -1,5 +1,5 @@
 # This is the server config.json example to utilizing V2ray as the server for Shadowsocks + V2Ray Plugin
-> The complete setup also requires a webserver to handle the TLS and proxy pass the deciphered request to the backend v2ray server at 127.0.0.1:10000
+> The complete setup also requires a web server to handle the TLS and proxy pass the deciphered request to the backend v2ray server at 127.0.0.1:10000.
 > You can find the web server example at https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration 
 
 中文用户请看 Readme - zh-CN. md
