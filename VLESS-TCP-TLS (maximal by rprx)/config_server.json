@@ -15,14 +15,17 @@
                     }
                 ],
                 "decryption": "none",
-                "fallback": {
-                    "unix": "/dev/shm/default.sock",
-                    "xver": 1
-                },
-                "fallback_h2": {
-                    "unix": "/dev/shm/h2.sock",
-                    "xver": 1
-                }
+                "fallbacks": [
+                    {
+                        "dest": "/dev/shm/default.sock",
+                        "xver": 1
+                    },
+                    {
+                        "alpn": "h2",
+                        "dest": "/dev/shm/h2.sock",
+                        "xver": 1
+                    }
+                ]
             },
             "streamSettings": {
                 "network": "tcp",

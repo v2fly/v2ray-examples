@@ -15,17 +15,16 @@
                         "email": "love@v2fly.org"
                     }
                 ],
-                "fallback": {
-                    "addr": "127.0.0.1",
-                    "port": 8001,
-                    "xver": 0
-                },
-                "fallback_h2": {
-                    "addr": "127.0.0.1",
-                    "port": 8002,
-                    "xver": 0
-                },
-                "decryption": "none"
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 8001
+                    },
+                    {
+                        "alpn": "h2",
+                        "dest": 8002
+                    }
+                ]
             },
             "streamSettings": {
                 "network": "tcp",
@@ -38,8 +37,8 @@
                     ],
                     "certificates": [
                         {
-                            "certificateFile": "/path/to/certificate.crt",
-                            "keyFile": "/path/to/key.key"
+                            "certificateFile": "/path/to/fullchain.crt",
+                            "keyFile": "/path/to/private.key"
                         }
                     ]
                 }
