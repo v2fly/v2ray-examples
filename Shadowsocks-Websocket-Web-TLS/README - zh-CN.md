@@ -15,7 +15,7 @@ RuntimeDirectory=ss-loop
 systemctl disable v2ray.service
 systemctl enable v2ray.service
 ```
-否者由于fhs脚本使用的nobody用户的权限无法在/var/run里新建文件夹而导致启动失败。
+否则由于fhs脚本使用的nobody用户的权限不够，无法在/var/run里新建文件夹'ss-loop'而导致启动失败。
 
 ## 客户端配置示意
 **你应该按照服务端的设置修改对应的参数**
