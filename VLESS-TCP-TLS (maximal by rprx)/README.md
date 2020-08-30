@@ -1,4 +1,4 @@
-# VLESS + TCP + TLS + 回落（最强配置）
+# VLESS TCP over TLS + 回落（最强配置）
 
 你应当先了解 [最简配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(minimal%20by%20rprx)>)，若你有进阶需求如同时建站等，可以参考此配置
 

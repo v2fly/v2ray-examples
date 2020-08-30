@@ -1,4 +1,4 @@
-# VLESS over TLS + 回落 & 分流 to WebSocket（推荐配置）
+# VLESS TCP over TLS + 回落 & 分流 to WebSocket（推荐配置）
 
 这里是 [最简配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(minimal%20by%20rprx)>) 的超集，利用 VLESS 强大的回落分流特性，实现了 443 端口 VLESS over TLS 和任意 WSS 的完美共存
 
