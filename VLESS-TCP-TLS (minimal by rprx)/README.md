@@ -2,7 +2,7 @@
 
 你需要有一个解析到服务器 IP 的域名，并且申请了证书，比如 let's encrypt
 
-你还需要一个 Nginx：
+你还需要一个 Nginx：（或者 Caddy 等任一 Web 服务器）
 
 1. 用系统自带的包管理器安装 nginx，具体方法请 Google
 2. nginx 的默认配置就是监听 80 端口，无需修改
