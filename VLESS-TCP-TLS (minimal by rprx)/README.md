@@ -1,4 +1,4 @@
-# VLESS TCP over TLS + 回落（最简配置）
+# VLESS over TCP with TLS + 回落（最简配置）
 
 你需要有一个解析到服务器 IP 的域名，并且申请了证书，比如 let's encrypt
 
