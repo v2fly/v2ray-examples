@@ -22,7 +22,7 @@
                     },
                     {
                         "alpn": "h2",
-                        "dest": "/dev/shm/h2.sock",
+                        "dest": "/dev/shm/h2c.sock",
                         "xver": 1
                     }
                 ]
