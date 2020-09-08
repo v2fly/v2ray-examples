@@ -1,0 +1,7 @@
+{
+    https_port 4433
+    auto_https disable_redirects
+}
+http://example.com, https://example.com
+root * /var/www/html
+file_server
