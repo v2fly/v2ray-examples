@@ -3,7 +3,9 @@
 ## 准备
 
 你需要有一个解析到服务器 IP 的域名，替换文档中的 example.com
+
 Vless 将使用 Caddy 申请的证书，无需额外配置
+
 将你的自建网站放置于 /var/www/html 路径
 
 ## Caddy2 安装
