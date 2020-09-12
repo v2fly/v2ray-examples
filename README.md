@@ -21,7 +21,7 @@
 
 ### 举例
 
-```yaml
+```json
 {
     "log": {
         "loglevel": "warning"
@@ -34,7 +34,7 @@
 
 ### 客户端
 
-```yaml
+```json
 {
     "log": {
         "loglevel": "warning"
@@ -91,7 +91,7 @@
 
 ### 服务端
 
-```yaml
+```json
 {
     "log": {
         "loglevel": "warning"
