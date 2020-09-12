@@ -21,7 +21,8 @@
 
 ### 举例
 
-```json
+<!-- 此处 yaml 仅用作语法高亮，实际内容为 json -->
+```yaml
 {
     "log": {
         "loglevel": "warning"
@@ -34,7 +35,8 @@
 
 ### 客户端
 
-```json
+<!-- 此处 yaml 仅用作语法高亮，实际内容为 json -->
+```yaml
 {
     "log": {
         "loglevel": "warning"
@@ -91,7 +93,8 @@
 
 ### 服务端
 
-```json
+<!-- 此处 yaml 仅用作语法高亮，实际内容为 json -->
+```yaml
 {
     "log": {
         "loglevel": "warning"
