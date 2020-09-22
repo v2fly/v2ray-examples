@@ -25,7 +25,8 @@
             "port":443,
             "users":[
               {
-                "id":""
+                "id":"",
+                "encryption":"none"
               }
             ]
           }
