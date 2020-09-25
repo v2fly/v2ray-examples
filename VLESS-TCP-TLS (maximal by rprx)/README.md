@@ -1,6 +1,6 @@
 # VLESS over TCP with TLS + 回落（建站配置）
 
-你应当先了解 [最简配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(minimal%20by%20rprx)>)，若你有进阶需求如同时建站等，可以参考此配置，同时结合其它配置
+你应当先了解 [最简配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(minimal%20by%20rprx)>) 等其它配置，若你有同时建站的需求，可以参考并结合此配置
 
 此配置含 VLESS 回落高级用法：
 
