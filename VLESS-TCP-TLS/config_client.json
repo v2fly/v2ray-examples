@@ -27,7 +27,7 @@
                     {
                         "address": "1.2.3.4",
                         "port": 443,
-                        "user": [
+                        "users": [
                             {
                                 "id": "",
                                 "encryption": "none",
