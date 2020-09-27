@@ -11,3 +11,7 @@
 5. 执行 `systemctl start nginx` 启动 nginx
 
 若服务器开启了防火墙或 VPS 有安全组，记得放行 TCP/80、443 端口
+
+---
+
+接下来，你可以了解 [建站配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(maximal%20by%20rprx)>)（回落高级用法）、尝试 [进阶配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS-WS%20(recommended)>)（分流 to WebSocket）
