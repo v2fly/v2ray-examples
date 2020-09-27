@@ -10,4 +10,6 @@
 4. VMess over TCP with TLS
 5. VMess over WS with TLS
 
-你还可以配置回落到 Caddy 的 forwardproxy 等其它防探测的代理，以及分流到任何支持 WebSocket 的代理，都没有问题
+---
+
+你还可以配置回落到 Caddy 的 forwardproxy 等其它也防探测的代理，以及分流到任何支持 WebSocket 的代理，都没有问题

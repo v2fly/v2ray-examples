@@ -10,4 +10,4 @@
 
 ---
 
-接下来，你可以尝试 [终极配置](https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-XTLS-WHATEVER)：换用 XTLS 实现极致的性能，还有分流到 VMess over TCP，以及更多回落分流建议，不只 V2Ray
+接下来，你可以尝试 [终极配置](https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-XTLS-WHATEVER)：换用 XTLS 实现极致性能，还有分流到 VMess over TCP，以及更多回落分流建议，不只 V2Ray
