@@ -18,7 +18,7 @@
                 "decryption": "none",
                 "fallbacks": [
                     {
-                        "dest": 80 // 也可以回落到其它防探测的代理
+                        "dest": 80 // 或者回落到其它也防探测的代理
                     },
                     {
                         "path": "/websocket", // 必须换成自定义的 PATH
