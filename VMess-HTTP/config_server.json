@@ -23,7 +23,7 @@
                 "clients": [
                     {
                         "id": "",
-                        "alterId": 4
+                        "alterId": 0
                     }
                 ],
                 "disableInsecureEncryption": true
