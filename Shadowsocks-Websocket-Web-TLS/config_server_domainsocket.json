@@ -1,0 +1,83 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "inboundTag": "wsdoko",
+                "outboundTag": "ssmux"
+            },
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "blocked"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 10000,
+            "listen": "127.0.0.1",
+            "protocol": "dokodemo-door",
+            "tag": "wsdoko",
+            "settings": {
+                "address": "v1.mux.cool",
+                "followRedirect": false,
+                "network": "tcp, udp"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "/michi"
+                }
+            }
+        },
+        {
+            "port": 9000,
+            "protocol": "shadowsocks",
+            "settings": {
+                "method": "chacha20-ietf-poly1305",
+                "ota": false,
+                "password": "ifYouWantToKeepYourPassphraseSafeChangeThis!!",
+                "network": "tcp,udp"
+            },
+            "streamSettings": {
+                "network": "domainsocket"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {},
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "blocked"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "ssmux",
+            "streamSettings": {
+                "network": "domainsocket"
+            }
+        }
+    ],
+    "dsSettings": {
+        "path": "/var/run/ss-loop/ss-loop.sock"
+    }
+}
