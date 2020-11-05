@@ -4,10 +4,10 @@
 
 客户端可以同时通过下列方式连接到服务器，其中 WS 都可以通过 CDN
 
-1. VLESS over TCP with XTLS
+1. VLESS over TCP with XTLS，数倍性能，首选方式
 2. VLESS over TCP with TLS
 3. VLESS over WS with TLS
-4. VMess over TCP with TLS
+4. VMess over TCP with TLS，不推荐
 5. VMess over WS with TLS
 6. Trojan over TCP with TLS
 
