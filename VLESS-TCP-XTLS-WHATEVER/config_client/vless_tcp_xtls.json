@@ -23,7 +23,7 @@
                         "users": [
                             {
                                 "id": "", // 填写你的 UUID
-                                "flow": "xtls-rprx-origin",
+                                "flow": "xtls-rprx-direct",
                                 "encryption": "none",
                                 "level": 0
                             }

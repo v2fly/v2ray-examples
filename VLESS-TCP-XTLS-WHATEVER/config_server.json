@@ -10,7 +10,7 @@
                 "clients": [
                     {
                         "id": "", // 填写你的 UUID
-                        "flow": "xtls-rprx-origin",
+                        "flow": "xtls-rprx-direct",
                         "level": 0,
                         "email": "love@v2fly.org"
                     }
