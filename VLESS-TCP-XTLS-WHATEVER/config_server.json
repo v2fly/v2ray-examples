@@ -18,7 +18,8 @@
                 "decryption": "none",
                 "fallbacks": [
                     {
-                        "dest": 80 // 或者回落到其它也防探测的代理
+                        "dest": 1310, // 默认回落到 V2Ray 的 Trojan 协议
+                        "xver": 1
                     },
                     {
                         "path": "/websocket", // 必须换成自定义的 PATH
@@ -50,6 +51,32 @@
                             "keyFile": "/path/to/private.key" // 换成你的私钥，绝对路径
                         }
                     ]
+                }
+            }
+        },
+        {
+            "port": 1310,
+            "listen": "127.0.0.1",
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password": "", // 填写你的密码
+                        "level": 0,
+                        "email": "love@v2fly.org"
+                    }
+                ],
+                "fallbacks": [
+                    {
+                        "dest": 80 // 或者回落到其它也防探测的代理
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "none",
+                "tcpSettings": {
+                    "acceptProxyProtocol": true
                 }
             }
         },

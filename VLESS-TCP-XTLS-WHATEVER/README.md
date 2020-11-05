@@ -9,7 +9,10 @@
 3. VLESS over WS with TLS
 4. VMess over TCP with TLS
 5. VMess over WS with TLS
+6. Trojan over TCP with TLS
 
 ---
+
+这里设置默认回落到 V2Ray 的 Trojan 协议，再继续回落到 80 端口的 Web 服务器（也可以换成数据库、FTP 等）
 
 你还可以配置回落到 Caddy 的 forwardproxy 等其它也防探测的代理，以及分流到任何支持 WebSocket 的代理，都没有问题
