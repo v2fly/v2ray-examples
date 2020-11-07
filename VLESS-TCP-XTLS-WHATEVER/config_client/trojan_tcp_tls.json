@@ -16,7 +16,7 @@
         {
             "protocol": "trojan",
             "settings": {
-                "vnext": [
+                "servers": [
                     {
                         "address": "example.com", // 换成你的域名或服务器 IP（发起请求时无需解析域名了）
                         "port": 443,
