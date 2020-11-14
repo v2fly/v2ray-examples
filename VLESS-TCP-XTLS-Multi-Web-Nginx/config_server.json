@@ -32,7 +32,7 @@
             "streamSettings": {
                 "network": "tcp",
                 "tcpSettings": {
-                    "acceptProxyProtocol": true // 传递真实来源 IP 和端口
+                    "acceptProxyProtocol": true // 接收真实来源 IP 和端口
                 },                
                 "security": "xtls",
                 "xtlsSettings": {
