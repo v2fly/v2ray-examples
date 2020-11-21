@@ -39,25 +39,16 @@
                     {
                         "address": "",
                         "port": 1234,
-                        "user": [
+                        "users": [
                             {
-                                "id": "",
-                                "alterId": 4,
-                                "security": "auto",
-                                "testsEnabled": "VMessAEAD"
+                                "id": ""
                             }
                         ]
                     }
                 ]
             },
             "streamSettings": {
-                "network": "ws",
-                "wsSettings": {
-                    "path": "",
-                    "headers": {
-                        "Host": ""
-                    }
-                }
+                "network": "ws"
             },
             "tag": "proxy"
         },

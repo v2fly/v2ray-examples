@@ -39,10 +39,9 @@
                     {
                         "address": "",
                         "port": 1234,
-                        "user": [
+                        "users": [
                             {
                                 "id": "",
-                                "alterId": 0,
                                 "security": "none"
                             }
                         ]
@@ -51,17 +50,7 @@
             },
             "streamSettings": {
                 "network": "ws",
-                "wsSettings": {
-                    "path": "",
-                    "headers": {
-                        "Host": "example.domain"
-                    }
-                },
-                "security": "tls",
-                "tlsSettings": {
-                    "serverName": "example.domain",
-                    "allowInsecure": false
-                }
+                "security": "tls"
             },
             "tag": "proxy"
         },

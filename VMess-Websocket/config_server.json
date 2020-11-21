@@ -22,20 +22,12 @@
             "settings": {
                 "clients": [
                     {
-                        "id": "",
-                        "alterId": 4
+                        "id": ""
                     }
-                ],
-                "disableInsecureEncryption": true
+                ]
             },
             "streamSettings": {
                 "network": "ws",
-                "wsSettings": {
-                    "path": "",
-                    "headers": {
-                        "Host": ""
-                    }
-                },
                 "security": "none"
             }
         }

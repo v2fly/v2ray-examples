@@ -39,12 +39,9 @@
                     {
                         "address": "",
                         "port": 1234,
-                        "user": [
+                        "users": [
                             {
-                                "id": "",
-                                "alterId": 4,
-                                "security": "auto",
-                                "testsEnabled": "VMessAEAD"
+                                "id": ""
                             }
                         ]
                     }
