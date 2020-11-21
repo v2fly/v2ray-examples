@@ -8,6 +8,3 @@
 
 经实测，VLESS 回落分流 WS 比 Nginx 反代 WS 性能更强，传统的 VMess + WSS 方案完全可以迁移过来，且不失兼容
 
----
-
-接下来，你可以尝试 [终极配置](https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-XTLS-WHATEVER)：换用 XTLS 实现极致性能，还有分流到 VMess over TCP，以及更多回落分流建议，不只 V2Ray
