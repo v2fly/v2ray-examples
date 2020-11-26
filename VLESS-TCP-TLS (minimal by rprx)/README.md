@@ -14,4 +14,4 @@
 
 ---
 
-接下来，你可以了解 [建站配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS%20(maximal%20by%20rprx)>)（回落高级用法）、尝试 [进阶配置](<https://github.com/v2fly/v2ray-examples/tree/master/VLESS-TCP-TLS-WS%20(recommended)>)（分流 to WebSocket）
+接下来，你可以了解 [建站配置](<../VLESS-TCP-TLS%20(maximal%20by%20rprx)>)（回落高级用法）、尝试 [进阶配置](<../VLESS-TCP-TLS-WS%20(recommended)>)（分流 to WebSocket）
