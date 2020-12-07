@@ -7,9 +7,10 @@
             "protocol": "vmess",
             "port": "{{ port }}",
             "settings": {
-                "decryption":"none",
                 "clients": [
-                    {"id": "{{  }}"}
+                    {
+                        "id": "{{ uuid }}"
+                    }
                 ]
             },
             "streamSettings": {
