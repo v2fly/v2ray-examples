@@ -1,0 +1,31 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+          "port": `V2RAY_PORT`, //任意有效的端口，只在`127.0.0.1`监听。
+          "listen":"127.0.0.1",
+          "protocol": "vmess",
+          "settings": {
+            "clients": [
+              {
+                "id": V2RAY_UUID, //VMess的UUID。
+                "alterId": 64
+              }
+            ]
+          },
+          "streamSettings": {
+            "network": "ws",
+            "wsSettings": {
+            "path": PATH //WS请求的路径，形如`/nginx`等的字符串。
+            }
+          }
+        }
+      ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ]
+}

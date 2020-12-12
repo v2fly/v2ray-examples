@@ -1,0 +1,58 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "direct",
+                "type": "field"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 1080,
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true
+            },
+            "tag": "socks"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "sendThrough": "0.0.0.0",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": DOMAIN_NAME, //你的域名。
+                        "port": 443,
+                        "users": [
+                            {
+                                "alterId": 64,
+                                "id": V2RAY_UUID, //VMess的UUID。
+                                "level": 0,
+                                "security": "auto",
+                                "testsEnabled": "none"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "wsSettings": {
+                    "path": PATH //WS请求的路径，形如`/nginx`等的字符串。
+                }
+            }
+        }
+    ]
+}
