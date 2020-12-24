@@ -72,8 +72,6 @@
                     {
                         "users": [
                             {
-                                "alterId": 4,
-                                "security": "aes-128-gcm",
                                 "id": ""
                             }
                         ],
@@ -119,7 +117,6 @@
                 "clients": [
                     {
                         "id": "",
-                        "alterId": 4
                     }
                 ]
             }
