@@ -38,7 +38,7 @@
                 "servers": [
                     {
                         "address": "{{ host }}",
-                        "port": "{{ port }}",
+                        "port": 1234,
                         "method": "chacha20-ietf-poly1305",
                         "password": "{{ password}}"
                     }
