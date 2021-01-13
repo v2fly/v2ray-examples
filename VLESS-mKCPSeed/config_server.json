@@ -9,7 +9,9 @@
             "settings": {
                 "decryption":"none",
                 "clients": [
-                    {"id": "{{  }}"}
+                    {
+                        "id": "{{ id }}"
+                    }
                 ]
             },
             "streamSettings": {
@@ -21,6 +23,8 @@
         }
     ],
     "outbounds": [
-        {"protocol": "freedom"}
+        {
+            "protocol": "freedom"
+        }
     ]
 }
