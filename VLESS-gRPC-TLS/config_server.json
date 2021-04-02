@@ -11,18 +11,7 @@
 				"clients": [
 					{
 						"id": "",
-						"level": 0,
 						"email": "love@v2fly.org"
-					}
-				],
-				"decryption": "none",
-				"fallbacks": [
-					{
-						"dest": 8001
-					},
-					{
-						"alpn": "h2",
-						"dest": 8002
 					}
 				]
 			},
@@ -30,10 +19,9 @@
 				"network": "gun",
 				"security": "tls",
 				"tlsSettings": {
-					"serverName": "your.domain.com",
+					"serverName": "your_domain",
 					"alpn": [
-						"h2",
-						"http/1.1"
+						"h2"
 					],
 					"certificates": [
 						{
