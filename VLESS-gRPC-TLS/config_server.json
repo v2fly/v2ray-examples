@@ -1,0 +1,57 @@
+{
+	"log": {
+		"loglevel": "warning"
+	},
+	"inbounds": [
+		{
+			"listen": "0.0.0.0",
+			"port": 443,
+			"protocol": "vless",
+			"settings": {
+				"clients": [
+					{
+						"id": "",
+						"level": 0,
+						"email": "love@v2fly.org"
+					}
+				],
+				"decryption": "none",
+				"fallbacks": [
+					{
+						"dest": 8001
+					},
+					{
+						"alpn": "h2",
+						"dest": 8002
+					}
+				]
+			},
+			"streamSettings": {
+				"network": "gun",
+				"security": "tls",
+				"tlsSettings": {
+					"serverName": "your.domain.com",
+					"alpn": [
+						"h2",
+						"http/1.1"
+					],
+					"certificates": [
+						{
+							"certificateFile": "/path/to/fullchain.crt",
+							"keyFile": "/path/to/private.key"
+						}
+					],
+					"grpcSettings": {
+						"serviceName": "GunService"
+					}
+				}
+			}
+		}
+	],
+	"outbounds": [
+		{
+			"protocol": "freedom",
+			"tag": "direct"
+		}
+	]
+}
