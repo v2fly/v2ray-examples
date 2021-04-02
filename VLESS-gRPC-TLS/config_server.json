@@ -28,10 +28,10 @@
 							"certificateFile": "/path/to/fullchain.crt",
 							"keyFile": "/path/to/private.key"
 						}
-					],
-					"grpcSettings": {
-						"serviceName": "GunService"
-					}
+					]
+				},
+                "grpcSettings": {
+					"serviceName": "GunService"
 				}
 			}
 		}
