@@ -1,45 +1,45 @@
 {
-	"log": {
-		"loglevel": "warning"
-	},
-	"inbounds": [
-		{
-			"listen": "0.0.0.0",
-			"port": 443,
-			"protocol": "vless",
-			"settings": {
-				"clients": [
-					{
-						"id": "",
-						"email": "love@v2fly.org"
-					}
-				]
-			},
-			"streamSettings": {
-				"network": "gun",
-				"security": "tls",
-				"tlsSettings": {
-					"serverName": "your_domain",
-					"alpn": [
-						"h2"
-					],
-					"certificates": [
-						{
-							"certificateFile": "/path/to/fullchain.crt",
-							"keyFile": "/path/to/private.key"
-						}
-					]
-				},
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "",
+                        "email": "love@v2fly.org"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "gun",
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": "your_domain",
+                    "alpn": [
+                        "h2"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/path/to/fullchain.crt",
+                            "keyFile": "/path/to/private.key"
+                        }
+                    ]
+                },
                 "grpcSettings": {
-					"serviceName": "GunService"
-				}
-			}
-		}
-	],
-	"outbounds": [
-		{
-			"protocol": "freedom",
-			"tag": "direct"
-		}
-	]
+                    "serviceName": "GunService"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
 }
