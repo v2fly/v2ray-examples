@@ -21,7 +21,7 @@
                     },
                     {
                         "alpn": "h2",
-                        "path": "/path/to/gRPC", // gRPC 路径
+                        "path": "/path/to/gRPC/Tun", // gRPC 路径
                         "dest": 1234
                     }
                 ]
