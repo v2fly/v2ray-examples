@@ -59,7 +59,10 @@
             },
             "streamSettings": {
                 "network": "gun",
-                "security": "none"
+                "security": "none",
+                "grpcSettings": {
+                    "serviceName": "path/to/gRPC", // gRPC 服务名称
+                }
             }
         }
     ],
