@@ -33,22 +33,19 @@
     ],
     "outbounds": [
         {
-            "protocol": "vmess",
+            "protocol": "shadowsocks",
             "settings": {
-                "vnext": [
+                "servers": [
                     {
-                        "address": "",
+                        "address": "{{ host }}",
                         "port": 1234,
-                        "users": [
-                            {
-                                "id": ""
-                            }
-                        ]
+                        "method": "chacha20-ietf-poly1305",
+                        "password": "{{ password}}"
                     }
                 ]
             },
             "streamSettings": {
-                "network": "ws"
+                "network": "tcp"
             },
             "tag": "proxy"
         },

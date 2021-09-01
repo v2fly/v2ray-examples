@@ -65,7 +65,7 @@
                 "ip": [
                     "geoip:private"
                 ],
-                "tag": "direct"
+                "outboundTag": "direct"
             }
         ]
     }

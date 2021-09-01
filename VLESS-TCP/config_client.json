@@ -27,7 +27,7 @@
                     {
                         "address": "1.2.3.4",
                         "port": 1234,
-                        "user": [
+                        "users": [
                             {
                                 "id": "",
                                 "encryption": "none",
@@ -55,7 +55,7 @@
                 "ip": [
                     "geoip:private"
                 ],
-                "tag": "direct"
+                "outboundTag": "direct"
             }
         ]
     }

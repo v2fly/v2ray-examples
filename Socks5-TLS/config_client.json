@@ -10,7 +10,7 @@
                 "ip": [
                     "geoip:private"
                 ],
-                "tag": "direct"
+                "outboundTag": "direct"
             }
         ]
     },
@@ -35,7 +35,7 @@
         {
             "protocol": "socks",
             "settings": {
-                "server": [
+                "servers": [
                     {
                         "address": "",
                         "port": 1234,
@@ -52,8 +52,7 @@
                 "network": "tcp",
                 "security": "tls",
                 "tlsSettings": {
-                    "serverName": "example.domain",
-                    "allowInsecure": false
+                    "serverName": "example.domain"
                 }
             },
             "tag": "proxy"

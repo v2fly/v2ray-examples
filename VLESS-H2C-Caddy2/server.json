@@ -13,7 +13,8 @@
             "id": "",
             "email": "love@v2fly.org"
           }
-        ]
+        ],
+        "decryption": "none"
       },
       "streamSettings": {
         "security": "none",
