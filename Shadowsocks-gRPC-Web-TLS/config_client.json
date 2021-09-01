@@ -47,7 +47,7 @@
             "streamSettings": {
                 "network": "grpc",
                 "security": "tls",
-                "grcpSettings": {
+                "grpcSettings": {
                     "serviceName": "michi"
                 }
             },

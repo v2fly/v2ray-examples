@@ -33,7 +33,7 @@
     ],
     "outbounds": [
         {
-            "protocol": "vmess",
+            "protocol": "shadowsocks",
             "settings": {
                 "servers": [
                     {
