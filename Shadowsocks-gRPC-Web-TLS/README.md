@@ -10,9 +10,9 @@ Minimum V2Ray-Core version is v4.36.0:\
 
 ## These settings are also compatible with shadowsocks + v2ray-plugins
 
-*You need a grpc compatible v2ray-plugin program to use with shadowsocks client.
+_You need a grpc compatible v2ray-plugin program to use with shadowsocks client.
 For example the one maintained by [TeddySun](https://github.com/teddysun): \
-[https://github.com/teddysun/v2ray-plugin](https://github.com/teddysun/v2ray-plugin)*
+[https://github.com/teddysun/v2ray-plugin](https://github.com/teddysun/v2ray-plugin)_
 
 ### Client Configurations
 
@@ -24,5 +24,5 @@ Server_Port: 443
 Password: ifYouWantToKeepYourPassphraseSafeChangeThis!!
 Encryption: chacha20-ietf-poly1305
 Plugin_Program: pathToYourV2ray-plugin_windows_arch.exe
-Plugin_Options: tls;mode=grpc;serviceName=/michi;host=mydomain.me
+Plugin_Options: tls;mode=grpc;serviceName=michi;host=mydomain.me
 ```
