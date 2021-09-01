@@ -26,7 +26,7 @@ Since nobody user does not have the right permission to create the 'ss-loop' fol
 ```
 Server IP: example.com
 Server Port: 443
-Passowrd: ifYouWantToKeepYourPassphraseSafeChangeThis!!
+Password: ifYouWantToKeepYourPassphraseSafeChangeThis!!
 Encryption: chacha20-ietf-poly1305
 Plugin Program: pathToYourV2ray-plugin_windows_arch.exe
 Plugin Options: tls;mode=websocket;path=/michi;host=example.com
@@ -36,7 +36,7 @@ Plugin Options: tls;mode=websocket;path=/michi;host=example.com
 > Both the shadowsocks android and the V2Ray plugin android are mandatory, they are available on Google Play Store.
 ```
 Plugin: v2ray
-Configure...:
+Configuration:
     Transport mode: websocket-tls
     Hostname: example.com
     Path: /michi

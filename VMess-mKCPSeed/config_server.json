@@ -1,0 +1,27 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "inbounds": [
+        {
+            "protocol": "vmess",
+            "port": "{{ port }}",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "{{ uuid }}"
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "kcp",
+                "kcpSettings": {
+                    "seed": "{{ seed }}"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {"protocol": "freedom"}
+    ]
+}

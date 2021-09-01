@@ -22,20 +22,12 @@
             "settings": {
                 "clients": [
                     {
-                        "id": "",
-                        "alterId": 4
+                        "id": ""
                     }
-                ],
-                "disableInsecureEncryption": false
+                ]
             },
             "streamSettings": {
                 "network": "http",
-                "httpSettings": {
-                    "host": [
-                        "example.domain"
-                    ],
-                    "path": ""
-                },
                 "security": "tls",
                 "tlsSettings": {
                     "certificates": [

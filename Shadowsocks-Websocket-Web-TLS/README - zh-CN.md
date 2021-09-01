@@ -23,7 +23,7 @@ systemctl enable v2ray.service
 ```
 Server IP: example.com
 Server Port: 443
-Passowrd: ifYouWantToKeepYourPassphraseSafeChangeThis!!
+Password: ifYouWantToKeepYourPassphraseSafeChangeThis!!
 Encryption: chacha20-ietf-poly1305
 Plugin Program: pathToYourV2ray-plugin_windows_arch.exe
 Plugin Options: tls;mode=websocket;path=/michi;host=example.com
@@ -33,7 +33,7 @@ Plugin Options: tls;mode=websocket;path=/michi;host=example.com
 **需安装 shadowsocks 和 v2ray plugin，并搭配一同使用**
 ```
 Plugin: v2ray
-Configure:
+Configuration:
     Transport mode: websocket-tls
     Hostname: example.com
     Path: /michi
