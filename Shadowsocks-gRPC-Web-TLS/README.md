@@ -1,6 +1,6 @@
 # Minimum Versions
 
-中文用户请看[这里](https://github.com/v2fly/v2ray-examples/blob/master/Shadowsocks-gRPC-Web-TLS/README-CN.md)
+中文用户请看[这里](./README-CN.md)
 
 Minimum NGINX version is 1.13.10:\
 [https://www.nginx.com/blog/nginx-1-13-10-grpc/](https://www.nginx.com/blog/nginx-1-13-10-grpc/)

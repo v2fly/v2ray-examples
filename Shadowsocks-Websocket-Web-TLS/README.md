@@ -3,7 +3,7 @@
 > The complete setup also requires a web server to handle the TLS and proxy pass the deciphered request to the backend v2ray server listeing on 127.0.0.1:10000.
 > You can find the web server config examples at [https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration](https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration)
 
-中文用户请看[这里](https://github.com/v2fly/v2ray-examples/blob/master/Shadowsocks-Websocket-Web-TLS/README-CN.md)
+中文用户请看[这里](./README-CN.md)
 
 ## Shadowsocks client configuration examples
 
@@ -11,7 +11,7 @@
 
 ### Shadowsocks windows client configuration examples
 
-> mux=0 is indispensable when connecting with V2Ray-plugin, if you wish to use mux you need to try the [Domainsocket or Redirect Approach](https://github.com/v2fly/v2ray-examples/blob/master/Shadowsocks-Websocket-Web-TLS/Domainsocket-or-Redirect-Approach/)
+> mux=0 is indispensable when connecting with V2Ray-plugin, if you wish to use mux you need to try the [Domainsocket or Redirect Approach](./Domainsocket-or-Redirect-Approach/)
 
 ```properties
 Server_IP: example.com or your server IP

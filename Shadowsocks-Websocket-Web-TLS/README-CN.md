@@ -8,7 +8,7 @@
 
 ### shadowsocks windows 客户端关键部分示例如下
 
-> 必须设置 mux=0，否则无法正常连接服务器。如果需要使用mux可以参考本文件夹里的[Domainsocket or Redirect Approach](https://github.com/v2fly/v2ray-examples/blob/master/Shadowsocks-Websocket-Web-TLS/Domainsocket-or-Redirect-Approach/)的方法。
+> 必须设置 mux=0，否则无法正常连接服务器。如果需要使用mux可以参考本文件夹里的[Domainsocket or Redirect Approach](./Domainsocket-or-Redirect-Approach/)的方法。
 
 ```properties
 Server_IP: example.com or your server ip

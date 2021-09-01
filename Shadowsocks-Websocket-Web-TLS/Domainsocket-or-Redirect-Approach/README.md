@@ -3,7 +3,7 @@
 > The complete setup also requires a web server to handle the TLS and proxy pass the deciphered request to the backend v2ray server at 127.0.0.1:10000.
 > You can find the web server config example at [https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration](https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration)
 
-中文用户请看[这里](https://github.com/v2fly/v2ray-examples/blob/master/Shadowsocks-Websocket-Web-TLS/Domainsocket-or-Redirect-Approach/README-CN.md)
+中文用户请看[这里](./README-CN.md)
 
 Choose one of the server config config_server_redirect.json and config_server_domainsocket.json
 
