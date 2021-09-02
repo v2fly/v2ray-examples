@@ -2,7 +2,7 @@
 
 > 完整的设置还需要一个 web 服务器解密 TLS 后,将请求转发给位于 127.0.0.1:10000 的 v2ray。由于 [https://guide.v2fly.org/advanced/wss_and_web.html#%E9%85%8D%E7%BD%AE](https://guide.v2fly.org/advanced/wss_and_web.html#%E9%85%8D%E7%BD%AE) 已经有了服务器的设置这里不再赘述，可以按需参考白话文教程里的 web 服务器设置。
 
-config_server_redirect.json 和 config_server_domainsocket.json 选其一
+config_server_redirect.json 和 config_server_domainsocket.json 选其一。
 
 如果使用 domain socket 需要修改`/etc/systemd/system/v2ray.service`。否则由于 fhs 脚本使用的 nobody 用户的权限不够，无法在/var/run 里新建文件夹`ss-loop`而导致启动失败。
 

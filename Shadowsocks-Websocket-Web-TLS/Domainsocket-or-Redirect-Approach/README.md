@@ -1,16 +1,18 @@
 # This is the server config.json example to utilizing V2ray as the server for Shadowsocks + V2Ray Plugin
 
 > The complete setup also requires a web server to handle the TLS and proxy pass the deciphered request to the backend v2ray server at 127.0.0.1:10000.
-> You can find the web server config example at [https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration](https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration)
+> You can find the web server config example at [https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration](https://guide.v2fly.org/en_US/advanced/wss_and_web.html#server-side-configuration).
 
-中文用户请看[这里](./README-CN.md)
+中文用户请看[这里](./README-CN.md)。
 
-Choose one of the server config config_server_redirect.json and config_server_domainsocket.json
+Choose one of the server config `config_server_redirect.json` and `config_server_domainsocket.json`.
 
-If you choose to use config_server_domainsocket.json, the following extra steps are required. Since the default service file created by fhs installation scripts is using nobody as the runtime user, this user does not have the permission to create the `ss-loop` folder in `/var/run`.
+If you choose to use `config_server_domainsocket.json`, the following extra steps are required. Since the default service file created by [`fhs-release.sh`](https://github.com/v2fly/fhs-install-v2ray) is using nobody as the runtime user, this user does not have the permission to create the `ss-loop` folder in `/var/run`.
 
-Use your prefered editor to modify the systemd service file at `/etc/systemd/system/v2ray.service`.
-Add the following line to the block starting with `[Service]`
+> You shall repeat the following steps after using [`fhs-release.sh`](https://github.com/v2fly/fhs-install-v2ray) scripts to upgrade v2ray-core versions each time. Since this script will always override the v2ray.service file.
+
+Use your prefered editor to modify the systemd service file at `/etc/systemd/system/v2ray.service`.\
+Add the following line to the block starting with `[Service]`.
 
 ```properties
 RuntimeDirectory=ss-loop
@@ -33,7 +35,7 @@ systemctl restart v2ray
 
 ## Client configuration examples
 
-> You should change the following configurations according to your server configs
+> You should change the following configurations according to your server configs.
 
 ### shadowsocks windows client configuration examples
 
