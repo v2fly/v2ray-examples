@@ -13,7 +13,7 @@ Use your prefered editor to modify the systemd service file at `/etc/systemd/sys
 Add the following line to the block starting with `[Service]`
 
 ```properties
-RuntimeDirectory=ss-loop 
+RuntimeDirectory=ss-loop
 ```
 
 `ss-loop` corresponds to the `/var/run/ss-loop` folder in the `dsSettings` inside config_server_domainsocket.json.
