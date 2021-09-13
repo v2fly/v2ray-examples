@@ -22,7 +22,7 @@
             "settings": {
                 "method": "chacha20-ietf-poly1305",
                 "password": "{{ password }}"
-        },
+            },
             "streamSettings": {
                 "network": "tcp"
             }
