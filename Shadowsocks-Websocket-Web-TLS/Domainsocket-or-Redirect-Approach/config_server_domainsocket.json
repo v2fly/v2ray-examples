@@ -40,7 +40,7 @@
             "streamSettings": {
                 "network": "ws",
                 "wsSettings": {
-                    "path": "/michi"
+                    "path": "/path"
                 }
             }
         },
