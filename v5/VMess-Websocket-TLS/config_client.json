@@ -1,0 +1,46 @@
+{
+    "log": {
+        "error": {
+            "level": "Warning",
+            "type": "Console"
+        },
+        "access": {
+            "type": "None"
+        }
+    },
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "address": "",
+                "port": 0,
+                "uuid": "00000000-0000-0000-0000-000000000000"
+            },
+            "streamSettings": {
+                "transport": "ws",
+                "transportSettings": {
+                    "path": ""
+                },
+                "security": "tls",
+                "securitySettings": {
+                    "serverName": ""
+                }
+            }
+        }
+    ],
+    "inbounds": [
+        {
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true,
+                "address": "127.0.0.1"
+            },
+            "port": 1080
+        },
+        {
+            "protocol": "http",
+            "settings": {},
+            "port": 8080
+        }
+    ]
+}
