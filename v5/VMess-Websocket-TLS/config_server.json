@@ -1,0 +1,45 @@
+{
+    "log": {
+        "error": {
+            "level": "Warning",
+            "type": "Console"
+        },
+        "access": {
+            "type": "None"
+        }
+    },
+    "inbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "users": [
+                    "00000000-0000-0000-0000-000000000000"
+                ]
+            },
+            "port": 0,
+            "streamSettings": {
+                "transport": "ws",
+                "transportSettings": {
+                    "path": ""
+                },
+                "security": "tls",
+                "securitySettings": {
+                    "serverName": "",
+                    "certificate": [
+                        {
+                            "usage": "ENCIPHERMENT",
+                            "certificateFile":"",
+                            "keyFile": ""
+                        }
+                    ]
+                }
+            }
+
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ]
+}
