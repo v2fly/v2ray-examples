@@ -72,7 +72,7 @@
                     {
                         "users": [
                             {
-                                "id": ""
+                                "id": "Your_UUID"
                             }
                         ],
                         "port": 1234,
@@ -116,7 +116,7 @@
             "settings": {
                 "clients": [
                     {
-                        "id": "",
+                        "id": "Your_UUID"
                     }
                 ]
             }
@@ -133,6 +133,13 @@
     ]
 }
 ```
+
+以上例子，做以下改动就可以使用：
+- 填Your_IP_Address
+- 在服务器端和客户端填一样的Your_UUID。
+在Linux上可以这样产生UUID:
+
+```cat /proc/sys/kernel/random/uuid```
 
 ## 如何选取适合自己的配置：
 
