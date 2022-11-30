@@ -136,7 +136,7 @@ Templates should adhere to the following standards:
 
 ## How to choose the configuration that suits you:
 
-![](how-to-choose/how-to-choose-a-v2ray-plan.png)
+![](how-to-choose/how-to-choose-a-v2ray-plan-ENG.png)
 
 Additional Notes:<br>
 Although Websocket+TLS+Web may be regarded as the best solution at this stage, it is definitely not a solution recommended for novices to try as soon as they come up, let alone the only usage of V2Ray. <br>
