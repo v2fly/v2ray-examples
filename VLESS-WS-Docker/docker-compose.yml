@@ -1,0 +1,11 @@
+version: '3'
+services:
+  xray:
+    image: teddysun/xray
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - V2RAY_VMESS_AEAD_FORCED=false
+    entrypoint: ["/usr/bin/xray", "-config", "/etc/xray/config.json"]
+    volumes:
+        - ./config.json:/etc/xray/config.json:ro
