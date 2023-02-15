@@ -1,0 +1,43 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 1234,
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true,
+                "address": "127.0.0.1"
+            },
+            "streamSettings": {
+                "transport": "tcp",
+                "security": "tls",
+                "securitySettings": {
+                    "certificate": [
+                        {
+                            "certificateFile": "/path/to/certificate.crt",
+                            "keyFile": "/path/to/key.key"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ]
+}

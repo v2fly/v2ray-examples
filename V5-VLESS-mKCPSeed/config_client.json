@@ -1,0 +1,41 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "port": 10808,
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true
+            }
+        },
+        {
+            "port": 10809,
+            "listen": "127.0.0.1",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+                "address": "{{ host }}",
+                "port": "{{ port }}",
+                "uuid": "your UUID"
+            },
+            "streamSettings": {
+                "transport": "kcp",
+                "transportSettings": {
+                    "seed": "{{ seed }}"
+                }
+            }
+        }
+    ]
+}

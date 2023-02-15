@@ -1,0 +1,45 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "port": 2001,
+            "listen": "127.0.0.1",
+            "protocol": "vless",
+            "settings": {
+                "users": [
+                    "UUID1",
+                    "UUID2"
+                ]
+            },
+            "streamSettings": {
+                "security": "none",
+                "transport": "h2",
+                "transportSettings": {
+                    "path": "/path",
+                    "host": [
+                        "xx.com"
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "direct",
+            "protocol": "freedom",
+            "settings": {}
+        },
+        {
+            "tag": "blocked",
+            "protocol": "blackhole",
+            "settings": {}
+        }
+    ]
+}

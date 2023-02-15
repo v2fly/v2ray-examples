@@ -1,0 +1,33 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "protocol": "vless",
+            "port": "{{ port }}",
+            "settings": {
+                "users": [
+                    "UUID1",
+                    "UUID2"
+                ]
+            },
+            "streamSettings": {
+                "transport": "kcp",
+                "transportSettings": {
+                    "seed": "{{ seed }}"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ]
+}

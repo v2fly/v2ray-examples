@@ -1,0 +1,42 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "port": 443,
+            "protocol": "trojan",
+            "settings": {
+                "users": [
+                    "your password1",
+                    "your password2"
+                ]
+            },
+            "streamSettings": {
+                "transport": "tcp",
+                "security": "tls",
+                "securitySettings": {
+                    "nextProtocol": [
+                        "http/1.1"
+                    ],
+                    "certificate": [
+                        {
+                            "certificateFile": "/path/to/fullchain.crt",
+                            "keyFile": "/path/to/private.key"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom"
+        }
+    ]
+}

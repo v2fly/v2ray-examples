@@ -1,0 +1,34 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "port": 10800,
+            "address": "127.0.0.1",
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "trojan",
+            "settings": {
+                "address": "example.com",
+                "port": 443,
+                "password": "your password"
+            },
+            "streamSettings": {
+                "transport": "tcp",
+                "security": "tls"
+            }
+        }
+    ]
+}
