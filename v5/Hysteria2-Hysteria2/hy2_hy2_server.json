@@ -1,0 +1,44 @@
+{
+  "log": {
+    "access": {
+      "type": "None"
+    },
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "0.0.0.0",
+      "port": 100000,
+      "protocol": "hysteria2",
+      "settings": {},
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "certificate": [
+            {
+              "certificate_file": "0000000.pem",
+              "key_file": "0000000.key",
+              "usage": "ENCIPHERMENT"
+            }
+          ]
+        },
+        "transport": "hysteria2",
+        "transportSettings": {
+          "congestion": {
+            "type": "bbr"
+          },
+          "password": "000000000000000000000",
+          "use_udp_extension": true
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ]
+}

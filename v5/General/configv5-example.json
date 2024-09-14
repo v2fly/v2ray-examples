@@ -1,0 +1,828 @@
+// emmm~ 本配置只是作为 v2ray jsonv5 写法的参考，尝试尽量把各个功能配置写法展现出来，如果日常使用，请先自行精简。（DNS 、路由）
+// 启动命令
+// v2ray run -c configv5-example.json -format=jsonv5
+{
+  "log": {
+    "access": {
+      "type": "Console",
+      "level": "Info"
+    },
+    "error": {
+      "type": "Console",
+      "level": "Info"
+    }
+    /*
+    // 日常使用
+    "access": {
+      "type": "Console",
+      "level": "Info"
+    },
+    "error": {
+      "type": "Console",
+      "level": "Info"
+    }
+    //
+    //
+    // 测试使用
+    "access": {
+      "type": "File",
+      "level": "Debug",
+      "path": "logaccess.log"
+    },
+    "error": {
+      "type": "File",
+      "level": "Debug",
+      "path": "logerror.log"
+    }
+    //
+    //
+// type: "None" | "Console" | "File"
+//   "None"：日志将被丢弃。
+//   "Console"：日志将被输出到标准输出。
+//   "File"：日志将被输出到一个文件。
+//
+//
+// path: string
+//   日志的文件路径，其值是一个合法的文件路径， 例如 "/tmp/v2ray/_error.log" (Linux) 或 "C:\\Temp\\v2ray\\_error.log" (Windows)。
+//
+//
+// level: "Debug" | "Info" | "Warning" | "Error" | "None"
+// 日志等级，默认值为 "Warning"。
+//   "Debug"：详细的调试性信息。同时包含所有 "Info" 内容
+//   "Info"：V2Ray 在运行时的状态，不影响正常使用。同时包含所有 "Warning" 内容。
+//   "Warning"：V2Ray 可能遇到了一些问题，通常是外部问题，不影响 V2Ray 的正常运行，但有可能影响用户的体验。同时包含所有 "Error" 内容。
+//   "Error"：V2Ray 遇到了无法正常运行的问题，需要立即解决。
+//   "None"：不记录任何内容。
+    "access": {
+      "type": "File",
+      "level": "Error",
+      "path": "/var/log/v2ray/logaccess.log"
+    },
+    "error": {
+      "type": "File",
+      "level": "Info",
+      "path": "/var/log/v2ray/logerror.log"
+    }
+    */
+  },
+  "dns": {
+    "staticHosts": [
+      {
+        "type": "Full",
+        "domain": "services.gfe.nvidia.com",
+        "ip": [
+          "127.0.0.1"
+        ]
+      },
+      {
+        "type": "Full",
+        "domain": "dns.google",
+        "ip": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      },
+      {
+        "type": "Full",
+        "domain": "cloudflare.com",
+        "ip": [
+          "1.1.1.1",
+          "1.0.0.1"
+        ]
+      },
+      {
+        "type": "Full",
+        "domain": "cloudflare.com",
+        "proxiedDomain": "api.v2fly.org"
+      }
+    ],
+    "nameServer": [
+      {
+        "address": {
+          "address": "8.8.8.8"
+        }
+      },
+      {
+        "address": {
+          "address": "1.1.1.1"
+        }
+      },
+      {
+        "address": {
+          "address": "tcp+local://8.8.8.8:53"
+        }
+      },
+      {
+        "address": {
+          "address": "https://dns.google/dns-query"
+        }
+      },
+      {
+        "address": {
+          "address": "localhost"
+        },
+        "prioritizedDomain": [
+          {
+            "type": "Subdomain",
+            "domain": ".cn"
+          },
+          {
+            "type": "Subdomain",
+            "domain": "weibo.cn"
+          },
+          {
+            "type": "Keyword",
+            "domain": "baidu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "sohu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "citic"
+          },
+          {
+            "type": "Keyword",
+            "domain": "xn--"
+          },
+          {
+            "type": "Keyword",
+            "domain": "unicom"
+          },
+          {
+            "type": "Regex",
+            "domain": "^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.(com\\.cn|net\\.cn|org\\.cn|edu\\.cn|gov\\.cn|cn)$"
+          }
+        ]
+      },
+      {
+        "address": {
+          "address": "local://233.5.5.5"
+        },
+        "prioritizedDomain": [
+          {
+            "type": "Subdomain",
+            "domain": ".cn"
+          },
+          {
+            "type": "Subdomain",
+            "domain": "weibo.cn"
+          },
+          {
+            "type": "Keyword",
+            "domain": "baidu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "sohu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "citic"
+          },
+          {
+            "type": "Keyword",
+            "domain": "xn--"
+          },
+          {
+            "type": "Keyword",
+            "domain": "unicom"
+          },
+          {
+            "type": "Regex",
+            "domain": "^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.(com\\.cn|net\\.cn|org\\.cn|edu\\.cn|gov\\.cn|cn)$"
+          }
+        ]
+      },
+      {
+        "address": {
+          "address": "local://119.29.29.29",
+          "port": 53
+        },
+        "skipFallback": false,
+        "prioritizedDomain": [
+          {
+            "type": "Subdomain",
+            "domain": ".cn"
+          },
+          {
+            "type": "Subdomain",
+            "domain": "weibo.cn"
+          },
+          {
+            "type": "Keyword",
+            "domain": "baidu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "sohu"
+          },
+          {
+            "type": "Keyword",
+            "domain": "citic"
+          },
+          {
+            "type": "Keyword",
+            "domain": "xn--"
+          },
+          {
+            "type": "Keyword",
+            "domain": "unicom"
+          },
+          {
+            "type": "Regex",
+            "domain": "^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.(com\\.cn|net\\.cn|org\\.cn|edu\\.cn|gov\\.cn|cn)$"
+          }
+        ]
+        /*
+        "expectIPs": [{"code": "cn"}]
+        */
+      },
+      {
+        "address": {
+          //          "network": "udp",
+          "address": "1.1.1.1",
+          "port": 53
+        },
+        "clientIp": "1.1.1.1",
+        "skipFallback": false,
+        "prioritizedDomain": [
+          {
+            "type": "Subdomain",
+            "domain": "youtube.com"
+          },
+          {
+            "type": "Keyword",
+            "domain": "google"
+          }
+        ]
+        /*
+        "expectIPs": [
+          {
+            "countryCode": "cn",
+            "cidr": [
+              {
+                "ipAddr": "119.29.0.0",
+                "prefix": 16
+              }
+            ],
+            "inverseMatch": true
+          },
+          {
+            "filePath": "geoip.dat",
+            "code": "private"
+          }
+        ]
+        */
+      },
+      {
+        "address": {
+          "address": "119.29.29.29"
+        }
+      },
+      {
+        "address": {
+          "address": "https://1.1.1.1/dns-query"
+          //          "port": 53
+        },
+        "clientIp": "1.1.1.1",
+        "skipFallback": true,
+        // prioritizedDomain
+        //   type: "Full" | "Subdomain" | "Keyword" | "Regex"
+        //
+        //
+        // domain: string
+        //   Full：当此域名完整匹配目标域名时，该规则生效。例如 v2ray.com 匹配 v2ray.com 但不匹配 www.v2ray.com。
+        //   Regex：当 domain 所表示的正则表达式匹配目标域名时，该规则生效。例如 \.goo.*\.com$ 匹配 www.google.com、fonts.googleapis.com，但不匹配 google.com。
+        //   Subdomain (推荐)：当此域名是目标域名或其子域名时，该规则生效。例如 v2ray.com 匹配 www.v2ray.com、v2ray.com，但不匹配 xv2ray.com。
+        //   Keyword：当此字符串匹配目标域名中任意部分，该规则生效。比如 sina.com 可以匹配 sina.com、sina.com.cn、www.sina.com 和 www.sina.company，但不匹配 sina.cn。
+        //
+        //
+        "prioritizedDomain": [
+          {
+            "type": "Subdomain",
+            "domain": "youotube.com"
+          },
+          {
+            "type": "Keyword",
+            "domain": "gooogle"
+          }
+        ],
+        /*
+        "ExpectIPs": [
+          {
+            "cidr": [
+              {
+                "ipAddr": "119.29.0.0",
+                "prefix": 16
+              }
+            ],
+            "inverseMatch": true
+          },
+          {
+            "filePath": "geoip.dat",
+            "code": "private"
+          }
+        ],
+        */
+        "fakeDns": {
+          "pools": [
+            {
+              "ipPool": "198.18.0.0/15",
+              "lruSize": 65535
+            },
+            {
+              "ipPool": "fc00::/18",
+              "lruSize": 65535
+            }
+          ]
+        },
+        "tag": "CloudFlareDNS",
+        "queryStrategy": "USE_IP4",
+        "cacheStrategy": "CacheEnabled",
+        "fallbackStrategy": "Enabled"
+      }
+    ],
+    "fakeDns": {
+      "pools": [
+        {
+          "ipPool": "198.18.0.0/15",
+          "lruSize": 65535
+        },
+        {
+          "ipPool": "fc00::/18",
+          "lruSize": 65535
+        }
+      ]
+    },
+    //    "clientIp": "1.2.3.4",	// 此功能需要 DNS 服务器支持 EDNS Client Subnet，用于 DNS 查询时通知 DNS 服务器，客户端所在的地理位置（不能是私有 IP 地址）。不建议全局通知 "1.2.3.4"，会导致返回为空。
+    "domainMatcher": "mph",
+    "queryStrategy": "USE_IP4",
+    "cacheStrategy": "CacheEnabled",
+    "disableCache": false,
+    "fallbackStrategy": "Enabled",
+    "disableFallback": false,
+    //    "disableFallbackIfMatch": false,	// (v5.2.0+ 弃用)
+    "tag": "dns"
+  },
+  "inbounds": [
+    {
+      "tag": "socks",
+      "protocol": "socks",
+      "settings": {
+        "udpEnabled": true,
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet"
+      },
+      "port": 7830,
+      "listen": "127.0.0.1"
+    },
+    {
+      "tag": "http",
+      "protocol": "http",
+      "settings": {},
+      "port": 7831,
+      "listen": "127.0.0.1"
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy", // 运行在 xray 的 vmess + ws +tls ，需要通过 v2ray 固定不安全的证书。 ./v2ray tls certChainHash --cert 证书.crt
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/0000000000000000000000000000"
+        },
+        "security": "tls",
+        "securitySettings": {
+          "serverName": "0000000.com",
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "00000000000000"
+          ]
+        }
+      }
+    },
+    {
+      "tag": "hysteria2", // h2_h2
+      "protocol": "hysteria2",
+      "settings": {
+        "server": [
+          {
+            "address": "0.0.0.0",
+            "port": 100000
+          }
+        ]
+      },
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "000000000000000000000"
+          ],
+          "server_name": "00000000000000.com"
+        },
+        "transport": "hysteria2",
+        "transportSettings": {
+          "congestion": {
+            "type": "bbr"
+          },
+          "password": "000000000000000000000",
+          "use_udp_extension": true
+        }
+      }
+    },
+    {
+      "tag": "vmess+ws",
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/000000000000000000000"
+        }
+      }
+    },
+    {
+      "tag": "vmess+ws+tls",
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "000000000000000000000000000000000000000000"
+          ],
+          "server_name": "000000000000000000000.com"
+        },
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/000000000000000000000000000000000000000000"
+        }
+      }
+    },
+    {
+      "tag": "vmess+tls+hy2",
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "server_name": "0000000000000.com",
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "000000000000000000000000000000000000000000"
+          ]
+        },
+        "transport": "hysteria2",
+        "transportSettings": {
+          "congestion": {
+            "type": "bbr"
+          },
+          "password": "000000000000000000000000000000000000000000",
+          "use_udp_extension": true
+        }
+      }
+    },
+    {
+      "tag": "shadowsocks",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "0.0.0.0",
+        "method": "aes-256-gcm",
+        "port": "100000",
+        "password": "000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
+    }
+  ],
+  //
+  //
+  //  GeoIP
+  //    cidr
+  //
+  //    code: string
+  //    filePath: string
+  //
+  //    inverseMatch : true | false （上面两个的通用参数）
+  //
+  //  CIDRObject
+  //    ipAddr: string
+  //    prefix: number
+  //
+  //  GeoDomain
+  //    domain : DomainObject
+  //    code: string
+  //    filePath: string
+  //
+  //  DomainObject
+  //  type : "Plain" | "Regex" | "RootDomain" | "Full"
+  //    Plain：纯字符串匹配模式，当匹配目标域名中任意部分时，该规则生效。比如 sina.com 可以匹配 sina.com、sina.com.cn、sina.company 和 www.sina.com，但不匹配 sina.cn。
+  //    Regex：正则表达式匹配模式，当正则表达式匹配目标域名时，该规则生效。例如 \.goo.*\.com$ 匹配 www.google.com、fonts.googleapis.com，但不匹配 google.com。
+  //    RootDomain：根域名匹配模式，当域名是目标域名或其子域名时，该规则生效。例如 v2ray.com 匹配 www.v2ray.com、v2ray.com，但不匹配 xv2ray.com。
+  //    Full：完整匹配模式，当域名完整匹配目标域名时，该规则生效。例如 v2ray.com 匹配 v2ray.com 但不匹配 www.v2ray.com。
+  //
+  //
+  "router": {
+    "domainStrategy": "IpIfNonMatch", // AsIs | UseIp | IpIfNonMatch | IpOnDemand
+    "rule": [
+      {
+        "tag": "block", // 网络流量类型 bittorrent 直连
+        "domainMatcher": "mph", // protocol
+        "protocol": [
+          "bittorrent"
+        ]
+      },
+      {
+        "tag": "block", // 全匹配去广告 + 关键词匹配去广告
+        "domainMatcher": "mph", // domain
+        "domain": [
+          {
+            "type": "Full",
+            "value": "discovery.razerapi.com"
+          },
+          {
+            "type": "Full",
+            "value": "services.gfe.nvidia.com"
+          },
+          {
+            "type": "Plain",
+            "value": "googleads"
+          },
+          {
+            "type": "Plain",
+            "value": "wlmonitor"
+          }
+        ]
+      },
+      {
+        "tag": "block", // geosite数据库匹配去广告
+        "domainMatcher": "mph", // domain
+        "geoDomain": [
+          {
+            "code": "category-httpdns",
+            "filePath": "geosite.dat"
+          },
+          {
+            "code": "category-ads-all",
+            "filePath": "geosite.dat"
+          }
+        ]
+      },
+      // 下面这个为融合写法，日常可以选择上面分开的，或者下面这个融合的。贴一下仓库佬友 shanoaice 去年的总结，不知道是否还准确，自行判断。https://github.com/v2fly/v2ray-core/issues/2518
+      //   domain 与 geoDomain 有分开的配置项，而 ip-cidr 和 geoip 没有分开来的配置项
+      //   domain 尽管可以单独写，但 geoDomain 的 GeoDomain 配置中也可以写 Domain 匹配
+      //   geoip 有 inverseMatch 选项，但 geoDomain 没有
+      //   domainMatcher 选项被放在了每一条规则单独的 RuleObject 里，而不是放在顶层的 service.router 中（像 v4 配置文件一样），单独对每一条规则配置 domainMatcher 意义不大，至少需要提供一个在顶层中提供默认值的方法，可以允许在每条 RuleObject 里单独 override
+      {
+        "tag": "block", // geosite数据库匹配 + domain 类型的全匹配和关键词匹配混合写法去广告
+        "domainMatcher": "mph", // domain
+        "geoDomain": [
+          {
+            "code": "category-httpdns",
+            "filePath": "geosite.dat"
+          },
+          {
+            "code": "category-ads-all",
+            "filePath": "geosite.dat"
+          },
+          {
+            "domain": [
+              {
+                "type": "Full",
+                "value": "discovery.razerapi.com"
+              },
+              {
+                "type": "Full",
+                "value": "services.gfe.nvidia.com"
+              },
+              {
+                "type": "Plain",
+                "value": "googleads"
+              },
+              {
+                "type": "Plain",
+                "value": "wlmonitor"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "proxy", // 根域名匹配模式代理 + 关键词匹配代理
+        "domainMatcher": "mph", // domain
+        "domain": [
+          {
+            "type": "RootDomain",
+            "value": "linux.do"
+          },
+          {
+            "type": "RootDomain",
+            "value": "v2ex.com"
+          },
+          {
+            "type": "Plain",
+            "value": "youtube"
+          },
+          {
+            "type": "Plain",
+            "value": "google"
+          }
+        ]
+      },
+      {
+        "tag": "proxy", // geosite数据库匹配代理
+        "domainMatcher": "mph", // domain
+        "geoDomain": [
+          {
+            "code": "google",
+            "filePath": "geosite.dat"
+          },
+          {
+            "code": "tld-!cn",
+            "filePath": "geosite.dat"
+          }
+        ]
+      },
+      {
+        "tag": "proxy", // cidr 匹配， cidr 需要在 geoip 下面才行。prefix 为 CIDR 地址计算IP地址范围，一般指定某个 IP，32即可。
+        "domainMatcher": "mph", // geoip
+        "geoip": [
+          {
+            "code": "google"
+          },
+          {
+            "cidr": [
+              {
+                "ipAddr": "8.8.4.4",
+                "prefix": 32
+              },
+              {
+                "ipAddr": "8.8.8.8",
+                "prefix": 32
+              },
+              {
+                "ipAddr": "1.1.1.1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "proxy", // geoip数据库匹配代理 + geoip数据库匹配反转代理
+        "domainMatcher": "mph", // geoip
+        "geoip": [
+          {
+            "code": "google",
+            "filePath": "geoip.dat"
+          },
+          {
+            "code": "telegram",
+            "filePath": "geoip.dat"
+          },
+          {
+            "inverseMatch": true,
+            "code": "cn",
+            "filePath": "geoip.dat"
+          }
+        ]
+      },
+      {
+        "tag": "direct", // 根域名匹配模式直连 + 关键词匹配直连
+        "domainMatcher": "mph", // domain
+        "domain": [
+          {
+            "type": "RootDomain",
+            "value": "bilibili.com"
+          },
+          {
+            "type": "RootDomain",
+            "value": "ixigua.com"
+          },
+          {
+            "type": "Plain",
+            "value": "moutai"
+          },
+          {
+            "type": "Plain",
+            "value": "tracker"
+          }
+        ]
+      },
+      {
+        "tag": "direct", // geosite数据库匹配直连
+        "domainMatcher": "mph", // geoDomain
+        "geoDomain": [
+          {
+            "code": "cn",
+            "filePath": "geosite.dat"
+          },
+          {
+            "code": "tld-cn",
+            "filePath": "geosite.dat"
+          }
+        ]
+      },
+      {
+        "tag": "direct", // cidr 匹配， cidr 需要在 geoip 下面才行。prefix 为 CIDR 地址计算IP地址范围，一般指定某个 IP，32即可。
+        "domainMatcher": "mph", // geoip
+        "geoip": [
+          {
+            "code": "private"
+          },
+          {
+            "cidr": [
+              {
+                "ipAddr": "233.5.5.5",
+                "prefix": 32
+              },
+              {
+                "ipAddr": "119.29.29.29",
+                "prefix": 32
+              },
+              {
+                "ipAddr": "114.114.114.114"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tag": "direct", // geoip数据库匹配直连
+        "domainMatcher": "mph", // geoip
+        "geoip": [
+          {
+            "code": "private",
+            "filePath": "geoip.dat"
+          },
+          {
+            "code": "cn",
+            "filePath": "geoip.dat"
+          }
+        ]
+      }
+      /*
+      {
+        "tag": "proxy",
+        "portList": "53,443,1000-2000"	// portList
+      },
+      {
+        "tag": "proxy",
+        "networks": "tcp,udp"	// networks
+      },
+      {
+        "tag": "direct",
+        "domainMatcher": "mph",	// sourceGeoip
+        "sourceGeoip": [
+          {
+            "code": "cn",
+            "filePath": "geoip.dat"
+          }
+        ]
+      },
+      {
+        "tag": "proxy",
+        "sourcePortList": "53,443,1000-2000"	// sourcePortList
+      },
+      {
+        "tag": "direct",
+        "domainMatcher": "mph",	// protocol
+        "protocol": [
+          "bittorrent"
+        ]
+      }
+      */
+    ],
+    "balancingRule": []
+  },
+  "services": {}
+}

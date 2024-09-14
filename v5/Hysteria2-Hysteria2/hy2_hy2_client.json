@@ -1,0 +1,61 @@
+{
+  "log": {
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    },
+    "access": {
+      "type": "None"
+    }
+  },
+  "outbounds": [
+    {
+      "protocol": "hysteria2",
+      "settings": {
+        "server": [
+          {
+            "address": "",
+            "port": 23443
+          }
+        ]
+      },
+      "streamSettings": {
+        "transport": "hysteria2",
+        "transportSettings": {
+          "password": "52ox2wx75d7j8qk63e6qaayx9p2pllfv9asn",
+          "congestion": {
+            "type": "bbr"
+          },
+          "use_udp_extension": true
+        },
+        "security": "tls",
+        "securitySettings": {
+          "server_name": "doubleclick.net",
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "ZDc/ImNDWn5xyFxcKuorq/k44/V/4rww2NlUFOlQWmY="
+          ]
+        }
+      }
+    }
+  ],
+  "inbounds": [
+    {
+      "protocol": "socks",
+      "settings": {
+        "udpEnabled": true,
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet"
+      },
+      "port": 34479,
+      "listen": "127.0.0.1"
+    },
+    {
+      "protocol": "http",
+      "settings": {
+      },
+      "port": 34480,
+      "listen": "127.0.0.1"
+    }
+  ]
+}
