@@ -1,0 +1,44 @@
+{
+  "log": {
+    "access": {
+      "type": "None"
+    },
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 7830,
+      "protocol": "socks",
+      "settings": {
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet",
+        "udpEnabled": true
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 7831,
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "shadowsocks2022",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 10000,
+        "method": "2022-blake3-aes-256-gcm",
+        "psk": "q+EHyQzDXNxaU4fLEVDs25TeFXp5dpvP9LSicGqQdNY=",	// 其他内核中 ipsk 没有设置的话，可以注销。
+        "ipsk": [
+          "qiObQZJVNCln3Gl5iJUVCw=="
+        ]
+      }
+    }
+  ]
+}

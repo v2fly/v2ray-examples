@@ -1,6 +1,21 @@
 // emmm~ 本配置只是作为 v2ray jsonv5 写法的参考，尝试尽量把各个功能配置写法展现出来，如果日常使用，请先自行精简。（DNS 、路由）
+// 修复了上一个版本的问题，完善一些功能：DNS 地址、IP 语法导致匹配问题，freedom 协议的功能完善，流量嗅探等等
 // 启动命令
 // v2ray run -c configv5-example.json -format=jsonv5
+//
+//
+// 官方案例中使用的自签 tls 证书方法
+// openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:secp384r1 -days 3650 -nodes -keyout doubleclick.net.key -out doubleclick.net.pem -subj "/CN=doubleclick.net" -addext "subjectAltName=DNS:doubleclick.net"
+//
+// "pinned_peer_certificate_chain_sha256" 参数需要生成的 certChainHash
+//
+// ./v2ray tls certChainHash --cert doubleclick.net.pem
+// vdUnuqSt/i/fEtTlPxY8trQVsPfliIj0d/+gqOCL1Jg=
+//
+// openssl x509 -noout -fingerprint -sha256 -in doubleclick.net.pem
+// sha256 Fingerprint=BD:D5:27:BA:A4:AD:FE:2F:DF:12:D4:E5:3F:16:3C:B6:B4:15:B0:F7:E5:88:88:F4:77:FF:A0:A8:E0:8B:D4:98
+//
+//
 {
   "log": {
     "access": {
@@ -96,6 +111,19 @@
         "proxiedDomain": "api.v2fly.org"
       }
     ],
+    //
+    //
+    // V5 的 DNS 请求逻辑和 V4 的匹配完全类似。先按照命中 prioritizedDomain 依次请求，如果请求失败，则根据命中 prioritizedDomain 的顺序下一个继续请求，直到成功。如果都返回为空，则进入 fallback 请求。
+    // DNS 地址的写法，写错会导致程序使用到时奔溃。
+    // "223.5.5.5"
+    // "tcp://223.5.5.5:53"
+    // "tcp+local://223.5.5.5:53"
+    // "https://1.1.1.1/dns-query"
+    // "https+local://223.5.5.5/dns-query"
+    // "https+local://a.b.c.d:8443/my-dns-query"
+    // "quic+local://dns.adguard.com"
+    //
+    //
     "nameServer": [
       {
         "address": {
@@ -158,7 +186,7 @@
       },
       {
         "address": {
-          "address": "local://233.5.5.5"
+          "address": "tcp+local://223.5.5.5:53"
         },
         "prioritizedDomain": [
           {
@@ -197,7 +225,7 @@
       },
       {
         "address": {
-          "address": "local://119.29.29.29",
+          "address": "119.29.29.29",
           "port": 53
         },
         "skipFallback": false,
@@ -376,14 +404,30 @@
         "packetEncoding": "Packet"
       },
       "port": 7830,
-      "listen": "127.0.0.1"
+      "listen": "127.0.0.1",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "metadataOnly": true
+      }
     },
     {
       "tag": "http",
       "protocol": "http",
       "settings": {},
       "port": 7831,
-      "listen": "127.0.0.1"
+      "listen": "127.0.0.1",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "metadataOnly": true
+      }
     }
   ],
   "outbounds": [
@@ -518,7 +562,12 @@
     {
       "tag": "direct",
       "protocol": "freedom",
-      "settings": {}
+      "settings": {},
+      "mux": {
+        "domainStrategy": "UseIp", // [ "AsIs" | "UseIP" | "UseIP4" | "UseIP6" ]
+        "enabled": false,
+        "concurrency": 8
+      }
     },
     {
       "tag": "block",
@@ -683,7 +732,7 @@
           {
             "cidr": [
               {
-                "ipAddr": "8.8.4.4",
+                "ipAddr": "8.8.4.4", // "prefix" 需要填写，否则导致 IP 匹配出问题。
                 "prefix": 32
               },
               {
@@ -691,7 +740,8 @@
                 "prefix": 32
               },
               {
-                "ipAddr": "1.1.1.1"
+                "ipAddr": "1.1.1.1",
+                "prefix": 32
               }
             ]
           }
@@ -762,7 +812,7 @@
           {
             "cidr": [
               {
-                "ipAddr": "233.5.5.5",
+                "ipAddr": "223.5.5.5",
                 "prefix": 32
               },
               {
@@ -770,7 +820,8 @@
                 "prefix": 32
               },
               {
-                "ipAddr": "114.114.114.114"
+                "ipAddr": "114.114.114.114",
+                "prefix": 32
               }
             ]
           }
