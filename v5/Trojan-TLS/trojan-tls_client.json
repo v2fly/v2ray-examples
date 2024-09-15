@@ -1,0 +1,50 @@
+{
+  "log": {
+    "access": {
+      "type": "None"
+    },
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 7830,
+      "protocol": "socks",
+      "settings": {
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet",
+        "udpEnabled": true
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 7831,
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "trojan",
+      "settings": {
+        "address": "0.0.0.0",
+        "password": "0000000-0000000-0000000-0000000-0000000",
+        "port": 100000
+      },
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "000000000000000000000"
+          ],
+          "server_name": "000000000000000000000.com"
+        }
+      }
+    }
+  ]
+}

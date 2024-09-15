@@ -1,0 +1,41 @@
+{
+  "log": {
+    "access": {
+      "type": "None"
+    },
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 7830,
+      "protocol": "socks",
+      "settings": {
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet",
+        "udpEnabled": true
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 7831,
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "192.168.0.2",
+        "method": "aes-256-gcm",
+        "port": "10000",
+        "password": "c8/NLeEOIfV7tVudQ8xh5eRAeKZD4EyB01TGm93fTMM="
+      }
+    }
+  ]
+}
