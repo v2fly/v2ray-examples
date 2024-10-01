@@ -1,0 +1,51 @@
+{
+  "outbounds": [
+    // v2ray 支持的订阅格式就是 V5 配置中的出站格式，不过 TAG 有些不同，需要注意且区分不同 TagName 的值，目前支持的格式还有限，在逐步适配中。
+    // metadata.TagName 要区分
+    // hysteria2 和 trojan 协议暂时无法解析
+    // 实际场景应用中，因为 v2ray 订阅解析器的问题，不能有注释，否则会无法解析
+    // 同样实际场景应用中，因为 v2ray 订阅解析器的问题，mux 无法被解析造成无法订阅到
+    {
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/000000000000000000000"
+        }
+      },
+      "metadata": {
+        "TagName": "AAA_vmess+ws"
+      }
+    },
+    {
+      "protocol": "vmess",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": 100000,
+        "uuid": "0000000-0000000-0000000-0000000-0000000"
+      },
+      "streamSettings": {
+        "security": "tls",
+        "securitySettings": {
+          "allow_insecure_if_pinned_peer_certificate": true,
+          "pinned_peer_certificate_chain_sha256": [
+            "000000000000000000000000000000000000000000"
+          ],
+          "server_name": "000000000000000000000.com"
+        },
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/000000000000000000000000000000000000000000"
+        }
+      },
+      "metadata": {
+        "TagName": "AAA_vmess+ws+tls"
+      }
+    }
+  ]
+}

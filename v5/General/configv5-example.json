@@ -1,3 +1,57 @@
+/*
+I'm a Dune fan, so let me be your Maud Dib and guide you through the v2ray config for V5.
+
+
+✦✦✦ Updateds Logs ✦✦✦
+所有的配置基于 v2fly/v2ray-core v5.19.0，且给出的配置与案例经过实操验证可行，除了 services 下的一些流量统计的服务没有测试是否可以。
+
+2024.9.**
+		   dns.staticHosts 配置写法案例；
+		   注释的完善，DNS 写法的完善；
+		   DNS expectIPs 确实已经不支持；
+		   DNS 全局配置注释完善。
+
+		   添加 Inbounds 和 Outbounds 的模板，被注释状态；
+		   添加 dokodemo 相关入站配置，可用性尚不可知，有待验证；
+		   添加一个出站配置案例，完善一个出站的所有配置参数和注释；
+		   节点添加链式代理和多路复用；
+		   节点添加更多的参数，streamSettings.securitySettings { nextProtocol，disableSystemRoot }；
+		   节点添加更多的参数，Mux，Mux 功能是在一条 TCP 连接上分发多个 TCP 连接的数据。实现细节详见 Mux.Cool。Mux 是为了减少 TCP 的握手延迟而设计，而非提高连接的吞吐量。使用 Mux 看视频、下载或者测速通常都有反效果。Mux 只需要在客户端启用，服务器端自动适配；
+		   添加 dns-out 出站；
+		   添加 loopback 出站配置，不知干嘛的；
+		   添加被注释的常规 balancer 对应的路由模块；
+		   添加被注释的订阅管理器对应的路由模块；
+		   添加透明代理时 DNS 路由和出站的相关配置；
+		   出站配置中 proxySettings 测试无效，再找找案例试试；
+		   balancingRule 测试成功。
+
+		   添加常规的 balancingRule 配置，以及订阅管理器对应的 balancingRule 模块，目前只剩订阅管理器测试没成功；
+		   添加订阅管理，配置了对应的路由等等；
+		   V2Ray 内置了一些服务来补充 V2Ray 的主要功能，添加了对应的服务配置。
+
+		   dns-out 配置的完善；
+		   dokodemo-door 配置的完善；
+		   balancer 功能在 xray 和 v2ray V4 版本中正常，但是 v2ray V5 版本中会奔溃；
+		   balancingRule 功能如果没有生效的话，至少会选择默认的出站方式；
+		   完善 v2ray WebSocket maxEarlyData 的配置，用于减少连接建立的时间；
+		   添加 commander 入站，对应的路由，以及 services.commander 模块，功能暂且不明；
+		   完善 services 中的服务配置，目前还有 services.policy.level.timeout 语法有问题；
+		   Tun 模式配置的修复以及测试运行成功，sniffingSettings 一个常规错误，destinationOverride 一个语法错误。无法正确解析Tun sniffing config中的destOverride。根本原因是services部分的配置使用了raw json，没有经过类似InboundConfig中的检查和转换，因此destOverride字段实际应为destinationOverride，这与文档记载不符；
+		   对应一个负载均衡器的标识。balancerTag 和 tag 须二选一。当同时指定时，balancerTag 生效；
+		   完善 services 里各个项目的注释。
+
+		   对于每一个连接，路由将根据这些规则从上到下依次进行判断，当遇到第一个生效规则时，即将这个连接转发至它所指定的 outboundTag或 balancerTag。当没有匹配到任何规则时，流量默认由第一个 outbound 发出；
+		   完成所有配置的搭配和组合；
+		   拼图的最后一块，代理链的设置。代理链设置后，只有能访问，就是成功了；
+		   V2Ray 提供了代理转发功能，利用它可以实现中转（在没有中转服务器操作权限的情况下）；
+		   使用代理转发可以实现由一个 Shadowsocks 服务器或者 V2Ray(VMess) 服务器来中转你的网络流量，并且中转服务器只能看到你加密的数据而不知道原始的数据是什么；
+		   性能：链式代理使用了多个节点，可能会造成延时、带宽等网络性能问题，并且客户端对每一个加解密的次数取决于代理链的长度，理论上也会有一定的影响；
+		   安全：代理转发会一定程度上提高安全性，但安全取决于最弱一环，并不意味着代理链越长就会越安全。如果你需要匿名，请考虑成熟的匿名方案。 另外，使用了代理转发 streamSettings 会失效，即只能是非 TLS、无 HTTP 伪装的 TCP 传输协议；
+		   实测得到的数据为：开启前置代理后，proxy 如果转发给 vmess+ws，vmess+ws 接受的数据完全加密，并不知道访问的数据是什么，只能看到需要转发给 proxy 的地址和端口，落地 IP 还是 proxy 的地址；
+		   数据的加密和转发的流程应该是：浏览器 -> 客户端 proxy 协议加密 -> 客户端 vmess+ws 协议加密 -> 服务端 vmess+ws 协议解密 -> 服务端 proxy 协议解密 -> 目标服务器；
+		   修复 backgroundObservatory 和 burstObservatory 配置项，加强了对这两个参数的理解和应用。
+
+*/
 // emmm~ 本配置只是作为 v2ray jsonv5 写法的参考，尝试尽量把各个功能配置写法展现出来，如果日常使用，请先自行精简。（DNS 、路由）
 // 修复了上一个版本的问题，完善一些功能：DNS 地址、IP 语法导致匹配问题，freedom 协议的功能完善，流量嗅探等等
 // 启动命令
@@ -82,6 +136,20 @@
   },
   "dns": {
     "staticHosts": [
+      //
+      //
+      // type: "Full" | "Subdomain" | "Keyword" | "Regex"
+      // domain: string，与 type 所对应的 domain 值。以下为 type 与domain 的对应关系：
+      //   Full：当此域名完整匹配目标域名时，该规则生效。例如 v2ray.com 匹配 v2ray.com 但不匹配 www.v2ray.com。
+      //   Regex：当 domain 所表示的正则表达式匹配目标域名时，该规则生效。例如 \.goo.*\.com$ 匹配 www.google.com、fonts.googleapis.com，但不匹配 google.com。
+      //   Subdomain (推荐)：当此域名是目标域名或其子域名时，该规则生效。例如 v2ray.com 匹配 www.v2ray.com、v2ray.com，但不匹配 xv2ray.com。
+      //   Keyword：当此字符串匹配目标域名中任意部分，该规则生效。比如 sina.com 可以匹配 sina.com、sina.com.cn、www.sina.com 和 www.sina.company，但不匹配 sina.cn。
+      // 与 domain 匹配后返回的是：
+      //    ip，匹配的域名所映射的 IP 地址列表。
+      //    proxiedDomain，如指定 proxiedDomain，匹配的域名将直接使用该域名的查询结果，类似于 CNAME。
+      //    如果同时指定了 ip 和 proxiedDomain，将优先生效 proxiedDomain。
+      //
+      //
       {
         "type": "Full",
         "domain": "services.gfe.nvidia.com",
@@ -122,6 +190,8 @@
     // "https+local://223.5.5.5/dns-query"
     // "https+local://a.b.c.d:8443/my-dns-query"
     // "quic+local://dns.adguard.com"
+    // localhost：使用本机预设的 DNS 配置
+    // FakeDNS：使用 V2Ray 内建的 FakeDNS 服务器。
     //
     //
     "nameServer": [
@@ -386,22 +456,34 @@
     },
     //    "clientIp": "1.2.3.4",	// 此功能需要 DNS 服务器支持 EDNS Client Subnet，用于 DNS 查询时通知 DNS 服务器，客户端所在的地理位置（不能是私有 IP 地址）。不建议全局通知 "1.2.3.4"，会导致返回为空。
     "domainMatcher": "mph",
-    "queryStrategy": "USE_IP4",
-    "cacheStrategy": "CacheEnabled",
-    "disableCache": false,
-    "fallbackStrategy": "Enabled",
-    "disableFallback": false,
-    //    "disableFallbackIfMatch": false,	// (v5.2.0+ 弃用)
+    "queryStrategy": "USE_IP4", // "USE_IP" | "USE_IP4" | "USE_IP6"
+    "cacheStrategy": "CacheEnabled", // "CacheEnabled" | "CacheDisabled"
+    "disableCache": false, // bool，默认为 false
+    "fallbackStrategy": "Enabled", // "Enabled" | "Disabled" | "DisabledIfAnyMatch"，DNS 回退（fallback）查询策略。默认为 Enabled，即启用 DNS 回退（fallback）查询。Disabled 为禁用 DNS 回退（fallback）查询。DisabledIfAnyMatch 为在 DNS 服务器的优先匹配域名列表命中时禁用 DNS 回退（fallback）查询。
+    "disableFallback": false, // bool，禁用 DNS 回退（fallback）查询。默认为 false，即为不禁用。详情见 DNS 处理流程。 (v5.2.0+ 弃用)
+    // "disableFallbackIfMatch": false,	// bool，禁用在 DNS 服务器的优先匹配域名列表命中时执行 DNS 回退（fallback）查询。 (v5.2.0+ 弃用)
     "tag": "dns"
   },
   "inbounds": [
+    /*
+    Inbounds 入站模板
+    {
+      "listen": "",
+      "port": "",
+      "protocol": "vmess",
+      "settings": {},
+      "sniffing": {},
+      "streamSettings": {},
+      "tag": ""
+    }
+*/
     {
       "tag": "socks",
       "protocol": "socks",
       "settings": {
         "udpEnabled": true,
         "address": "127.0.0.1",
-        "packetEncoding": "Packet"
+        "packetEncoding": "Packet" // Packet 模式适合于实时性要求高的应用：如 VoIP、在线游戏等。需要保证连接稳定的应用：如远程桌面、文件传输等。需要穿透 NAT 的应用：如 P2P 应用。None 模式适合于：对连接稳定性要求不高的应用。需要灵活配置路由路径的应用。
       },
       "port": 7830,
       "listen": "127.0.0.1",
@@ -428,9 +510,113 @@
         ],
         "metadataOnly": true
       }
+    },
+    {
+      "tag": "dokodemo-door",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1",
+        "port": 65535,
+        "networks": [
+          "tcp,udp"
+        ],
+        "followRedirect": false // 当值为 true 时，Dokodemo door 会识别出由 iptables 转发而来的数据，并转发到相应的目标地址。
+      },
+      "port": 19829,
+      "listen": "127.0.0.1",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "metadataOnly": true
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tproxy": "tproxy"
+        }
+      }
+    },
+    {
+      "tag": "commander",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1",
+        "port": 65535,
+        "networks": [
+          "tcp"
+        ]
+      },
+      "port": 19629,
+      "listen": "127.0.0.1"
     }
   ],
   "outbounds": [
+    /*
+    {
+      "tag": "proxy",
+      "protocol": "vmess",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 10000,
+        "uuid": "adc27dd2-e7f9-41e8-a01d-2573e257564f"
+      },
+      "streamSettings": {
+        "transport": "ws",	// 传输层协议名称，mKCP、TCP、WebSocket、gRPC、QUIC、meek、httpupgrade、Hysteria2
+        "transportSettings": {	// 传输层协议设置
+          "path": "/ws"
+        },
+        "security": "tls",	// 传输层安全协议，TLS，uTLS，none，xray 还有 reality。uTLS 仅在 TCP 和 WebSocket 中支持。
+        "securitySettings": {	// 传输层安全协议设定
+          "serverName": "你的域名.com",	// 指定服务器端证书的域名，在连接由 IP 建立时有用。当目标连接由域名指定时，比如在 Socks 入站时接收到了域名，或者由 Sniffing 功能探测出了域名，这个域名会自动用于 serverName，无须手动配置。
+          "next_protocol": ["h2", "http/1.1"],	// h2 会出错，一个字符串数组，指定了 TLS 握手时指定的 ALPN 数值。默认值为 ["h2", "http/1.1"]。
+          "disable_system_root": false,	// 是否禁用操作系统自带的 CA 证书。默认值为 false。当值为 true 时，V2Ray 只会使用 certificates 中指定的证书进行 TLS 握手。当值为 false 时，V2Ray 只会使用操作系统自带的 CA 证书进行 TLS 握手。
+          "allow_insecure_if_pinned_peer_certificate": true,	// 此选项将在 pinnedPeerCertificateChainSha256 被设置时禁用 TLS 证书验证。如果 pinnedPeerCertificateChainSha256 没有被设置，本选项会被忽略。
+          "pinned_peer_certificate_chain_sha256": [	// 使用 Base64 标准编码格式表示的远程服务器的证书链的SHA256散列值。在设置后，远程服务器的证书链的散列值必须为列表中的数值之一。此数值可以通过以下命令生成： ./v2ray tls certChainHash --cert <cert.pem> (v5.18.0+)
+            "qwertyuiomnbgvc/x="
+          ]
+        }
+      },
+      "proxySettings": {
+        "tag": "链式代理节点的 tag",	// 当指定另一个出站连接的标识时，此出站连接发出的数据，将被转发至所指定的出站连接发出。
+        "transportLayer": true	// 是否启用传输层转发支持。在启用后,此出站连接的传输层协议将保持生效（如果传输层协议支持）。如果不启用此选项, 在转发时传输层协议将失效，只能使用默认的 TCP 传输协议。
+      },
+      "sendThrough": "1.2.3.4",	// 用于发送数据的 IP 地址，当主机有多个 IP 地址时有效，默认值为 "0.0.0.0"。
+      "mux": {
+        "domainStrategy": "AsIs", // [ "AsIs" | "UseIP" | "UseIP4" | "UseIP6" ]
+        "enabled": true,
+        "concurrency": 8	// 最大并发连接数。最小值 1，最大值 1024，默认值 8。如果填负数，如 -1，则不加载 Mux 模块。此数值表示了一个 TCP 连接上最多承载的 Mux 连接数量。当客户端发出了 8 个 TCP 请求，而 concurrency=8 时，V2Ray 只会发出一条实际的连接，客户端的 8 个请求全部由这条连接传输。
+      }
+    }
+      // 
+      "streamSettings": {
+        {
+          "mark": 0,	// 一个整数。当其值非零时，在出站连接上标记 SO_MARK。仅适用于 Linux 系统。需要 CAP_NET_ADMIN 权限。
+          "tcpFastOpen": false,	// 是否启用 TCP Fast Open。当其值为 true 时，强制开启 TFO；当其值为 false 时，强制关闭 TFO；当此项不存在时，使用系统默认设置。可用于入站出站连接。
+          "tcpFastOpenQueueLength": 4096,	// number 入站连接的 TCP Fast Open 队列长度，默认值为 4096，仅在 Linux 中可用。
+          "tproxy": "off",	// 是否开启透明代理（仅适用于 Linux）。"redirect"：使用 Redirect 模式的透明代理。支持 TCP 和 UDP 连接。"tproxy"：使用 TProxy 模式的透明代理。支持 TCP 和 UDP 连接。"off"：关闭透明代理。透明代理需要 Root 或 CAP_NET_ADMIN 权限。当 Dokodemo-door 中指定了 followRedirect，且 sockopt.tproxy 为空时，sockopt.tproxy 的值会被设为 "redirect"。
+          "tcpKeepAliveInterval": 0,	// TCP 保持活跃的数据包的发送间隔，以秒为单位（仅适用于 Linux）。0 代表保持默认值。
+          "bindToDevice": "eth0",	// 将连接绑定到指定的网络设备（Linux: v5.0.6+, Windows/Darwin: v5.2.0+）。
+          "mptcp": false	// 是否启用多路径TCP（仅适用于Linux）。true 打开 MPTCP 。如果另一端的主机不支持 MPTCP，MPTCP 将回退为普通 TCP。
+        }
+      }
+*/
+    /*
+    Outbounds 出站模板
+    {
+      "protocol": "vmess",
+      "proxySettings": {},
+      "sendThrough": "1.2.3.4",
+      "settings": {},
+      "streamSettings": {},
+      "mux": {
+            "concurrency": 8,
+            "enabled": false
+      },
+      "tag": "demo"
+    }
+*/
     {
       "tag": "proxy", // 运行在 xray 的 vmess + ws +tls ，需要通过 v2ray 固定不安全的证书。 ./v2ray tls certChainHash --cert 证书.crt
       "protocol": "vmess",
@@ -454,8 +640,29 @@
         }
       }
     },
+    // 一个链式代理案例，注意：落地 IP 还是 proxy 的，容易造成理解错误，代理链设置后，只要能访问，就是成功了。
     {
-      "tag": "hysteria2", // h2_h2
+      "tag": "proxy_链式代理",
+      "protocol": "vmess",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 10000,
+        "uuid": "adc27dd2-e7f9-41e8-a01d-2573e257564f"
+      },
+      "streamSettings": {
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/ws"
+        }
+      },
+      "proxySettings": {
+        "tag": "UDA_hysteria2",
+        "transportLayer": true
+      }
+    }
+    // 负载均衡配置开始，这里提供两种方案，一个本地 outbounds 中的节点通过筛选进行负载均衡，另一个为订阅管理器筛选。同时如果多个节点，类似下面的案例的话，建议把节点 tag 使用固定的开头方便筛选。
+    {
+      "tag": "UDA_hysteria2", // h2_h2
       "protocol": "hysteria2",
       "settings": {
         "server": [
@@ -485,7 +692,7 @@
       }
     },
     {
-      "tag": "vmess+ws",
+      "tag": "UDA_vmess+ws",
       "protocol": "vmess",
       "settings": {
         "address": "0.0.0.0",
@@ -500,7 +707,7 @@
       }
     },
     {
-      "tag": "vmess+ws+tls",
+      "tag": "UDA_vmess+ws+tls",
       "protocol": "vmess",
       "settings": {
         "address": "0.0.0.0",
@@ -523,7 +730,7 @@
       }
     },
     {
-      "tag": "vmess+tls+hy2",
+      "tag": "UDA_vmess+tls+hy2",
       "protocol": "vmess",
       "settings": {
         "address": "0.0.0.0",
@@ -550,7 +757,47 @@
       }
     },
     {
-      "tag": "shadowsocks",
+      "tag": "balancer_shadowsocks",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "0.0.0.0",
+        "method": "aes-256-gcm",
+        "port": "100000",
+        "password": "000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "tag": "balancer_shadowsocks",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "0.0.0.0",
+        "method": "aes-256-gcm",
+        "port": "100000",
+        "password": "000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "tag": "balancer_shadowsocks",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "0.0.0.0",
+        "method": "aes-256-gcm",
+        "port": "100000",
+        "password": "000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "tag": "balancer_shadowsocks",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "0.0.0.0",
+        "method": "aes-256-gcm",
+        "port": "100000",
+        "password": "000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "tag": "balancer_shadowsocks",
       "protocol": "shadowsocks",
       "settings": {
         "address": "0.0.0.0",
@@ -570,8 +817,23 @@
       }
     },
     {
+      "tag": "dns-out",
+      "protocol": "dns",
+      "settings": {},
+      "proxySettings": {
+        "tag": "proxy"
+      }
+    },
+    {
       "tag": "block",
       "protocol": "blackhole"
+    },
+    {
+      "tag": "loopback-out",
+      "protocol": "loopback",
+      "settings": {
+        "inboundTag": "loopback-in"
+      }
     }
   ],
   //
@@ -601,9 +863,55 @@
   //    Full：完整匹配模式，当域名完整匹配目标域名时，该规则生效。例如 v2ray.com 匹配 v2ray.com 但不匹配 www.v2ray.com。
   //
   //
+    /*
+    //	常规 balancer 对应的路由模块
+      {
+        "balancingTag": "balancer",
+        "networks": "tcp,udp"
+      }
+    //  订阅管理器对应的路由模块
+      {
+        "balancingTag": "subscriptions",
+        "networks": "tcp,udp"
+      },
+      {
+        "tag": "commander",
+        "inboundTag": [
+          "commander"
+        ]
+      }
+      */
+    /*
+      {
+        // "tag": "proxy",
+        "balancingTag": "subscriptions",
+        "inboundTag": [
+          "http"
+        ]
+      },
+      {
+        // "tag": "proxy",
+        "balancingTag": "balancerout",
+        "inboundTag": [
+          "socks"
+        ]
+      },
+      {
+        "tag": "commander",
+        "inboundTag": [
+          "commander"
+        ]
+      },
+       */
   "router": {
     "domainStrategy": "IpIfNonMatch", // AsIs | UseIp | IpIfNonMatch | IpOnDemand
     "rule": [
+      {
+        "tag": "dns-out", // 防火墙重定向类型透明代理时的 dns 劫持
+        "domainMatcher": "mph",
+        "portList": "53",
+        "networks": "udp"
+      },
       {
         "tag": "block", // 网络流量类型 bittorrent 直连
         "domainMatcher": "mph", // protocol
@@ -688,6 +996,8 @@
       },
       {
         "tag": "proxy", // 根域名匹配模式代理 + 关键词匹配代理
+        // 对应一个负载均衡器的标识。balancerTag 和 outboundTag 须二选一。当同时指定时，outboundTag 生效。
+        "balancingTag": "balancerout",
         "domainMatcher": "mph", // domain
         "domain": [
           {
@@ -873,7 +1183,178 @@
       }
       */
     ],
-    "balancingRule": []
+    "balancingRule": [
+      // random 不需要添加 backgroundObservatory 或者 burstObservatory 配置项。
+      // leastPing 根据连接观测结果选择延迟最小的匹配到的出站代理，需要添加 backgroundObservatory 配置项。
+      // leastLoad 根据连接观测结果选择最稳定的出站代理，需要添加 burstObservatory 配置项。
+      // 订阅管理器对应的 balancingRule 模块；
+      {
+        "tag": "ShellPersonal",
+        "outbound_selector": [
+          "shellpersonal_"
+        ],
+        "strategy": "random", // "random" | "leastping" | "leastload"，进行负载均衡的策略类型,当没有匹配到任何规则时，流量默认由第一个 outbound 发出。random 默认值。随机选择匹配到的出站代理。roundRobin 按顺序选择匹配到的出站代理(V5 不支持这个参数)。leastPing 根据连接观测结果选择延迟最小的匹配到的出站代理。需要添加 observatory 配置项。leastLoad 根据连接观测结果选择最稳定的出站代理。需要添加 burstObservatory 配置项。
+        "fallbackTag": "proxy" // 如果负载均衡器无法选出合适的 outbound，则使用这个配置项指定的 outbound。
+      },
+      {
+        "tag": "PersonalShell",
+        "outbound_selector": [
+          "personalshell_"
+        ],
+        "strategy": "random",
+        "fallbackTag": "proxy"
+      },
+      // 常规 balancingRule 模块；
+      {
+        "tag": "UDAOUT",
+        "outbound_selector": [
+          "UDA_"
+        ],
+        "strategy": "leastload"
+      },
+      {
+        "tag": "balancerout",
+        "outbound_selector": [
+          "balancer_"
+        ],
+        "strategy": "leastping"
+      }
+    ]
   },
-  "services": {}
+  "services": {
+    // ✦✦✦ 连接观测组件 ✦✦✦
+    // 连接观测组件使用 HTTPing 的方式探测出站代理的连接状态。观测结果可以被其他组件使用，如负载均衡器。目前有 backgroundObservatory （后台连接观测）和 burstObservatory （并发连接观测）两种。按需选择其中之一就行。
+    // 连接状态观测配置，负载均衡功能需要搭配该模块才行，V4 没有类似的配置搭配，leastping 和 leastload 这两个策略是需要配置连接观测来决定路由策略的。
+    "backgroundObservatory": { // 后台连接观测服务，通过定时指定的出站连接建立连接来确定出站代理的状态。
+      "subject_selector": [ // 用于 leastping，一个字符串数组，其中每一个字符串将用于和出站协议标识的前缀匹配。在以下几个出站协议标识中：[ "a", "ab", "c", "ba" ]，"subjectSelector": ["a"] 将匹配到 [ "a", "ab" ]。
+        "UDA_",
+        "balancer_"
+      ],
+      "probe_interval": 5000000000, // "5s"，发起探测的间隔。每经过这个时间，就会对一个服务器进行服务器状态检测。时间格式为数字+单位，比如"10s", "2h45m"，支持的时间单位有 ns, us, ms, s, m, h， 分别对应纳秒、微秒、毫秒、秒、分、时。
+      // 如果默写节点设置后无法负载均衡，可能在于那些节点无法 PING 通 probeUrl 的地址，采用了最终默认的出站策略。修改下面 probeUrl 的地址，或者直接删掉采用官方默认的参数即可。
+      "probeUrl": "http://www.qualcomm.cn/generate_204" // 用于检测连接状态的网址。默认会使用内构的连接状态检测地址。✦✦✦ 此目标地址的服务器可以推断出您使用了本程序。如果您使用了第三方提供的服务器，该服务器的运营商可能基于此信息作出不利于您的决定，如展示更多验证码，拒绝服务或封禁您的帐号。✦✦✦
+    },
+    "burstObservatory": { // 并发连接观测服务，用于 leastLoad 根据连接观测结果选择最稳定的出站代理。
+      "subjectSelector": [ // 用于 leastload，一个字符串数组，其中每一个字符串将用于和出站协议标识的前缀匹配。在以下几个出站协议标识中：[ "a", "ab", "c", "ba" ]，"subjectSelector": ["a"] 将匹配到 [ "a", "ab" ]。
+        "UDA_",
+        "balancer_"
+      ],
+      "pingConfig": {
+        "timeout": 5000000000, // "5000ms"	// Ping 超时时间, 时间格式为数字+单位，比如"10s", "2h45m"。。
+        "interval": 60000000000, // "60s"	// 在指定时间内探测全部匹配的出站代理，每个出站代理探测 sampling + 1 次。时间格式为数字 + 单位，比如 "10s", "2h45m"，支持的时间单位有 ns, us, ms, s, m, h， 分别对应纳秒、微秒、毫秒、秒、分、时。
+        "connectivity": "http://www.msftncsi.com/ncsi.txt", // 连接检查 URL，用于检测本地网络连通性的网址，空字符串表示不检测本地网络连通性。
+        "samplingCount": 20, // 保留的最近 Ping 结果的数量。
+        "destination": "http://www.gstatic.com/generate_204" // 用于探测出站代理连接状态的网址。这个网址应该返回 HTTP 204 成功状态码。
+      }
+    },
+    "subscription": {
+      // 订阅管理器自动刷新出站信息并将它们转换为出站实例。 (v5.13.0+)
+      // 订阅源的地址，目前有两种收到支持的发地址。
+      //   HTTP(S) 地址 : 通过 HTTP(S) 即 「超文本传输协议」或 「超文本传输安全协议」下载订阅文档。
+      //   DataURL : 链接本身即为订阅文档。文档类型需为 "application/vnd.v2ray.subscription-singular" 才会被接受。
+      /*
+    The default time to fetch subscription document again. This time is not strictly honored.
+    Subscription Manager will
+      1. Check ImportSources from time to time to download subscription documents
+      2. Parse subscription documents with Subscription Container parsing components. The subscription documents will then be converted into individual server definitions.
+      3. Try to parse the server definitions as standardized outbound format one by one, if fails, try to convert the document into outbound format with Subscription Converter.
+      4. Compare the successfully converted server definition set with the servers already instanced as outbounds, and apply the difference. Only the modified server will have their Outbound Handlers recreated.
+    */
+      "imports": [
+        {
+          "name": "ShellPersonal", // 机场提供的订阅
+          "url": "",
+          "tag_prefix": "shellpersonal_subscription", // 创建的订阅的出站实例前缀。
+          "importUsingTag": "proxy", // 指定下载订阅文档的出站代理标志。
+          "default_expire_seconds": 3600 // 默认的订阅过期时间。
+        },
+        {
+          "name": "PersonalShell", // 自建的订阅
+          "url": "",
+          "tag_prefix": "personalshell_subscription",
+          "importUsingTag": "proxy",
+          "default_expire_seconds": 3600
+        }
+      ]
+    },
+    "stats": {},
+    "policy": {
+      "system": {
+        "stats": {
+          "inboundUplink": false,
+          "inboundDownlink": false,
+          "outboundUplink": false,
+          "outboundDownlink": false
+        }
+      },
+      "level": {
+        "0": {
+          "timeout": {
+            /*
+            "handshake": 4,
+            "connectionIdle": 300,
+            "uplinkOnly": 2,
+            "downlinkOnly": 5
+          */
+          },
+          "stats": {
+            "userUplink": false,
+            "userDownlink": false
+          },
+          "buffer": {
+            "connection": -1
+          }
+        }
+      }
+    },
+    // 浏览器转发模块
+    // 对此 浏览器转发（browser dialer）应运而生。用户在自己的浏览器中打开一个页面至 localhost:8080，这个页面利用原生 JS 充当 Xray 的网络栈，与代理服务端建立 TLS，HTTP 连接。
+    // https://xtls.github.io/config/features/browser_dialer.html
+    "browser": {
+      "listenAddr": "127.0.0.1",
+      "listenPort": 4837
+    },
+    "commander": {
+      "tag": "commander",
+      "name": [
+        "observatory"
+      ]
+    }
+    /*
+    // 虚拟网卡模式，仅 Linux amd64 and arm64 支持。
+    // 目前仅支持 amd64 以及 arm64 架构下的 Linux 操作系统，Tun 是一个接受网络层数据包的服务，输入进入操作系统 tun 接口的数据包会被转换为一般数据流被传出代理处理。 (v5.9.0+)
+    // 该功能已经实际测试运行成功。
+    "tun": {
+      "name": "tun0",
+      "mtu": 1500,	// tun 网络适配器的最大传输单元。建议设置为 1500。
+      "tag": "tun",	// 生成的流量的入站流量标签。
+      "ips": [
+        {
+          "ip": [192, 18, 0, 1],
+          "prefix": 24
+        }
+      ],
+      "routes": [
+        {
+          "ip": [0, 0, 0, 0],
+          "prefix": 0
+        }
+      ],
+      "enablePromiscuousMode": true,	// 是否开启混杂模式。建议设置为 true。
+      "enableSpoofing": true,	// 是否开启 IP 欺骗。建议设置为 true。
+      "packetEncoding": "None",	// ["None" | "Packet"]，UDP 包的编码方式，默认为 None。当此值为 None 时，UDP 连接将根据其目标地址（地址和端口映射）被分成流。当此值为 Packet 时，来自单个源连接的 UDP 连接将被编码为 UDP 数据包地址连接，并通过受支持的出站作为端点独立映射 UDP 连接恢复到其原始形式。这种 UDP 行为也被称为 FullCone 或 NAT1。
+      "sniffingSettings": {	// tun 入站连接的流量探测设置。流量探测允许路由根据连接的内容和元数据转发连接。（v5.11.0+）
+        "enabled": true,
+        "destinationOverride": [
+          "http",
+          "tls",
+          "quic",
+          "fakedns",
+          "fakedns+others"
+        ],
+        "metadataOnly": true
+      }
+    }
+    */
+  }
 }

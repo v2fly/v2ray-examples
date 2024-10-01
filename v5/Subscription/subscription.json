@@ -1,0 +1,110 @@
+{
+  "log": {
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    },
+    "access": {
+      "type": "None"
+    }
+  },
+  "outbounds": [
+    {
+      "tag": "deny",
+      "protocol": "blackhole"
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    }
+  ],
+  "router": {
+    "domainStrategy": "AsIs",
+    "rule": [
+      {
+        "balancingTag": "subscriptions",
+        "inboundTag": [
+          "user-in"
+        ]
+      },
+      {
+        "tag": "commander",
+        "inboundTag": [
+          "commander"
+        ]
+      }
+    ],
+    "balancingRule": [
+      {
+        "tag": "subscriptions",
+        "outbound_selector": [
+          "subscription_"
+        ],
+        "strategy": "leastping"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "user-in",
+      "protocol": "socks",
+      "settings": {
+        "udpEnabled": true,
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet"
+      },
+      "port": 19828,
+      "listen": "99.99.99.99"
+    },
+    {
+      "tag": "commander",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "127.0.0.1",
+        "port": 65535,
+        "networks": ["tcp"]
+      },
+      "port": 19829,
+      "listen": "127.0.0.1"
+    }
+  ],
+  "services": {
+    "backgroundObservatory": {
+      "subject_selector": [
+        "subscription_"
+      ],
+      "probe_interval": 5000000000
+    },
+    "subscription": {
+      "imports": [
+        {
+          "name": "AAA",
+          "url": "",
+          "tag_prefix": "subscription_aaa",
+          "importUsingTag": "direct",
+          "default_expire_seconds": 3600
+        },
+        {
+          "name": "BBB",
+          "url": "",
+          "tag_prefix": "subscription_bbb",
+          "importUsingTag": "direct",
+          "default_expire_seconds": 3600
+        },
+        {
+          "name": "CCC",
+          "url": "",
+          "tag_prefix": "subscription_ccc",
+          "importUsingTag": "direct",
+          "default_expire_seconds": 3600
+        }
+      ]
+    },
+    "commander": {
+      "tag": "commander",
+      "name": [
+        "observatory"
+      ]
+    }
+  }
+}

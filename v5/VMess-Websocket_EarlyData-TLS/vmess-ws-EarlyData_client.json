@@ -1,0 +1,49 @@
+// 关于 ws 的 EarlyData 配置，xray 或者其他内核中，可以在 path 中添加 ?ed=2560 启动，v2ray 直接这样设置不可以，需要通过 maxEarlyData 单独设置。
+// v2ray 内核与 v2ray 内核之间，ws 的 EarlyData 传递必须使用 maxEarlyData 传递，但是 v2ray 内核与其他，比如 xray、sing-box 之间，ws 的 EarlyData 传递只能通过 ?ed=2560 传递，不可混淆。
+{
+  "log": {
+    "access": {
+      "type": "None"
+    },
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    }
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 7830,
+      "protocol": "socks",
+      "settings": {
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet",
+        "udpEnabled": true
+      }
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 7831,
+      "protocol": "http",
+      "settings": {}
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 10000,
+        "uuid": "adc27dd2-e7f9-41e8-a01d-2573e257564f"
+      },
+      "streamSettings": {
+        "transport": "ws",
+        "transportSettings": {
+          "path": "/ws",
+          "maxEarlyData": "4096"
+        }
+      },
+      "tag": "proxy"
+    }
+  ]
+}

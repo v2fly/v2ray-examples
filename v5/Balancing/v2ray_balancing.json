@@ -1,0 +1,95 @@
+{
+  "log": {
+    "error": {
+      "level": "Debug",
+      "type": "Console"
+    },
+    "access": {
+      "type": "None"
+    }
+  },
+  "outbounds": [
+    {
+      "tag": "deny",
+      "protocol": "blackhole"
+    },
+    {
+      "tag": "ooo_1",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "1.1.1.1",
+        "method": "aes-256-gcm",
+        "port": "10000",
+        "password": "cbc0566c-9674-4818-bc79-e42509e0696d"
+      }
+    },
+    {
+      "tag": "ooo_2",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "1.1.1.1",
+        "method": "aes-256-gcm",
+        "port": "10000",
+        "password": "cbc0566c-9674-4818-bc79-e42509e0696d"
+      }
+    },
+    {
+      "tag": "ooo_3",
+      "protocol": "shadowsocks",
+      "settings": {
+        "address": "1.1.1.1",
+        "method": "aes-256-gcm",
+        "port": "10000",
+        "password": "cbc0566c-9674-4818-bc79-e42509e0696d"
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    }
+  ],
+  "router": {
+    "domainStrategy": "AsIs",
+    "rule": [
+      {
+        "balancingTag": "balancerout",
+        "inboundTag": [
+          "user-in"
+        ]
+      }
+    ],
+    "balancingRule": [
+      {
+        "tag": "balancerout",
+        "outbound_selector": [
+          "ooo_"
+        ],
+        "strategy": "random",	// "random" | "leastping" | "leastload"，随机性，最低延迟，最低负荷；
+        "fallbackTag": "direct"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "tag": "user-in",
+      "protocol": "socks",
+      "settings": {
+        "udpEnabled": true,
+        "address": "127.0.0.1",
+        "packetEncoding": "Packet"
+      },
+      "port": 7830,
+      "listen": "127.0.0.1"
+    }
+  ],
+  "services": {
+    "backgroundObservatory": {
+    // 关于这里的详细设置与不同，参考 configv5-example.json 配置文件，有详细的介绍。
+      "subject_selector": [
+        "ooo_"
+      ],
+      "probe_interval": 5000000000,	// 10000000000, "10s"
+      "probeUrl": "http://www.gstatic.com/generate_204"
+    }
+  }
+}
