@@ -1,0 +1,53 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "port": "10808",
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true
+            }
+        },
+        {
+            "port": "10809",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+                "address": "xx.com",
+                "port": 443,
+                "uuid": "your UUID"
+            },
+            "streamSettings": {
+                "transport": "h2",
+                "security": "tls",
+                "transportSettings": {
+                    "host": [
+                        "xx.com"
+                    ],
+                    "path": "/path"
+                }
+            }
+        },
+        {
+            "tag": "direct",
+            "protocol": "freedom",
+            "settings": {}
+        },
+        {
+            "tag": "blocked",
+            "protocol": "blackhole",
+            "settings": {}
+        }
+    ]
+}

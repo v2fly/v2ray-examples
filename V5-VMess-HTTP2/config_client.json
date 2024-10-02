@@ -1,0 +1,45 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": "10808",
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true,
+                "address": "127.0.0.1"
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "10809",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vmess",
+            "settings": {
+                "address": "",
+                "port": 1234,
+                "uuid": "your UUID"
+            },
+            "streamSettings": {
+                "transport": "http",
+                "security": "tls"
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}

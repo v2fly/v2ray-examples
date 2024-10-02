@@ -1,0 +1,45 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": "10808",
+            "protocol": "socks"
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "10809",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+                "address": "your_server_ip",
+                "port": 443,
+                "uuid": "your UUID"
+            },
+            "streamSettings": {
+                "transport": "gun",
+                "security": "tls",
+                "securitySettings": {
+                    "serverName": "your_domain",
+                    "nextProtocol": [
+                        "h2"
+                    ]
+                },
+                "transportSettings": {
+                    "serviceName": "GunService"
+                }
+            }
+        }
+    ]
+}
