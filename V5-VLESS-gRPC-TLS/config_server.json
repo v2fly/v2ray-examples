@@ -1,0 +1,48 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "listen": "0.0.0.0",
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "users ": [
+                    "UUID1",
+                    "UUID2"
+                ]
+            },
+            "streamSettings": {
+                "transport": "gun",
+                "security": "tls",
+                "securitySettings": {
+                    "serverName": "your_domain",
+                    "nextProtocol": [
+                        "h2"
+                    ],
+                    "certificate": [
+                        {
+                            "certificateFile": "/path/to/fullchain.crt",
+                            "keyFile": "/path/to/private.key"
+                        }
+                    ]
+                },
+                "transportSettings": {
+                    "serviceName": "GunService"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}

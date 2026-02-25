@@ -1,0 +1,74 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "router": {
+        "domainStrategy": "AsIs",
+        "rule": [
+            {
+                "inboundTag": "wsdoko",
+                "tag": "ssredirect"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 10000,
+            "listen": "127.0.0.1",
+            "protocol": "dokodemo-door",
+            "tag": "wsdoko",
+            "settings": {
+                "address": "v1.mux.cool",
+                "followRedirect": false,
+                "network": "tcp, udp"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            },
+            "streamSettings": {
+                "transport": "ws",
+                "transportSettings": {
+                    "path": "/path"
+                }
+            }
+        },
+        {
+            "port": 9000,
+            "protocol": "shadowsocks",
+            "settings": {
+                "method": "chacha20-ietf-poly1305",
+                "ota": false,
+                "password": "ifYouWantToKeepYourPassphraseSafeChangeThis!!",
+                "network": "tcp,udp"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "settings": {},
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "blocked"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "ssredirect",
+            "settings": {
+                "redirect": "127.0.0.1:9000"
+            }
+        }
+    ]
+}

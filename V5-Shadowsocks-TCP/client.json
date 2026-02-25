@@ -1,0 +1,45 @@
+{
+    "access": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "error": {
+        "type": "Console",
+        "level": "Warning"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": "10808",
+            "protocol": "socks",
+            "settings": {
+                "udpEnabled": true,
+                "address": "127.0.0.1"
+            }
+        },
+        {
+            "listen": "127.0.0.1",
+            "port": "10809",
+            "protocol": "http"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "shadowsocks",
+            "settings": {
+                "address": "{{ host }}",
+                "port": 1234,
+                "method": "chacha20-ietf-poly1305",
+                "password": "{{ password}}"
+            },
+            "streamSettings": {
+                "transport": "tcp"
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ]
+}
